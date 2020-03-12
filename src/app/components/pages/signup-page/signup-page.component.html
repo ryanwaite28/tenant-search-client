@@ -1,0 +1,52 @@
+<div id="signup-page-container">
+  <mat-card class="middle-container-1">
+    <h1 class="text-center">Sign Up</h1>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="flex-container">
+        <mat-form-field class="flex-grow-even name-field">
+          <mat-label>First name</mat-label>
+          <input matInput formControlName="first_name"/>
+        </mat-form-field>
+
+        <mat-form-field class="flex-grow-even name-field">
+          <mat-label>Middle Initial</mat-label>
+          <input matInput formControlName="middle_initial"/>
+        </mat-form-field>
+
+        <mat-form-field class="flex-grow-even name-field">
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="last_name"/>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <div class="mat-form-field">
+        <mat-label>Account Type</mat-label>
+        <br/>
+        <br/>
+        <mat-radio-group #accountTypesGroup aria-label="Choose Account Type" formControlName="account_type">
+          <mat-radio-button radioGroup="accountTypesGroup" [value]="USER_ACCOUNT_TYPES.TENANT" style="margin-right: 20px">
+            {{ USER_ACCOUNT_TYPE_LABELS.TENANT }}
+          </mat-radio-button>
+          <mat-radio-button radioGroup="accountTypesGroup" [value]="USER_ACCOUNT_TYPES.HOME_OWNER">
+            {{ USER_ACCOUNT_TYPE_LABELS.HOME_OWNER }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <br/>
+        <br/>
+      </div>
+      <mat-form-field class="">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Confirm Password</mat-label>
+        <input type="password" matInput formControlName="confirmPassword" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </mat-card>
+</div>

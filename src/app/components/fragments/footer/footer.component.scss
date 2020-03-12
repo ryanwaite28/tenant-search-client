@@ -1,0 +1,16 @@
+#app-footer {
+  padding: 25px;
+  background-color: #000;
+  color: #ff4081;
+
+  li {
+    list-style-type: none;
+  }
+
+  li a {
+    color: white;
+  }
+  li a:hover {
+    color: #3f51b5;
+  }
+}

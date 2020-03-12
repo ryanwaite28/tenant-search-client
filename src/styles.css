@@ -1,1 +1,276 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*
+
+primary: #3f51b5
+accent: #ff4081
+
+*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.block {
+  display: block;
+}
+
+.spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+  border-top-color: #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+  animation: nprogress-spinner 400ms linear infinite;
+}
+
+.middle-container-1 {
+  display: block;
+  margin: 25px auto;
+  width: 1000px;
+  max-width: 100%;
+}
+
+.rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.container-space-1 {
+  padding: 50px 0px;
+}
+
+.row-pad-1 {
+  padding: 50px 0px;
+}
+
+input.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+.transition {
+  -webkit-transition: transition 0.3s;
+  -moz-transition: transition 0.3s;
+  -o-transition: transition 0.3s;
+  -ms-transition: transition 0.3s;
+  transition: 0.3s;
+}
+
+.fill {
+	background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.fit {
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+div.spacer-1 {
+  padding: 20vh;
+}
+
+.dim {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: black;
+  opacity: 0.75;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.polaroid {
+  width: 125px;
+  padding: 5px;
+  background: #f2f2f2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+.polaroid:hover {
+  width: 200px;
+  padding: 3px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grey-text {
+  color: grey;
+}
+
+.white-bg {
+  background: #fff;
+}
+
+section.content-box {
+  padding: 5vh;
+  background: #fff;
+  margin: 15px 0px;
+  border: 1px solid grey;
+  box-shadow: 0px 1px 1px grey;
+}
+
+.blur-1 {
+	filter: blur(4px);
+	-webkit-filter: blur(4px);
+}
+.blur-2 {
+	filter: blur(8px);
+	-webkit-filter: blur(8px);
+}
+.blur-3 {
+	filter: blur(12px);
+	-webkit-filter: blur(12px);
+}
+
+.blur-1, .blur-2, .blur-3 {
+	-ms-transition: transition 0.3s;
+	-moz-transition: transition 0.3s;
+	-o-transition: transition 0.3s;
+	-webkit-transition: transition 0.3s;
+  transition: 0.3s;
+}
+
+.blur-1:hover, .blur-2:hover, .blur-3:hover {
+	filter: blur(0px);
+	-webkit-filter: blur(0px);
+  transition: 0.3s;
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+.input-s1 {
+  width: 375px;
+  max-width: 95%;
+  padding: 5px;
+  line-height: normal;
+  border: 1px solid grey;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+}
+
+.card-panel {
+  -webkit-transition: -webkit-box-shadow .25s;
+  -webkit-transition: box-shadow .25s;
+  transition: box-shadow .25s;
+  padding: 24px;
+  margin: .5rem 0 1rem 0;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.dim-1 {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.middlr {
+  display: block;
+  margin: auto;
+}
+
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.well blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, .15);
+}
+.well-lg {
+  padding: 24px;
+  border-radius: 6px;
+}
+.well-sm {
+  padding: 9px;
+  border-radius: 3px;
+}
+
+.space-bm-1 {
+  margin-bottom: 10px;
+}
+
+.home-bio-img {
+  width: 250px;
+  max-width: 100%;
+  border-radius: 150px;
+  padding: 3px;
+  background: white;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.user-icon-1 {
+  width: 50px;
+  max-width: 100%;
+  border-radius: 125px;
+  padding: 1px;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.flex-grow-even {
+  flex-grow: 1;
+}
+
+.flex-icon {
+  padding: 0 14px;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}

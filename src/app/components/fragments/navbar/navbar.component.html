@@ -1,0 +1,14 @@
+<mat-toolbar id="app-navbar" color="accent">
+  <span><strong><a class="transition" [routerLink]="['/']">Tenant Search</a></strong></span>
+  <span class="flex-spacer"></span>
+  <ng-container [ngSwitch]="!!user">
+    <ng-container *ngSwitchCase="true">
+      <span class=""><a class="nav-link transition" [routerLink]="['/', 'users', user.id]">Home</a></span>
+      <span class=""><a class="nav-link transition" (click)="sign_out($event)">Sign Out</a></span>
+    </ng-container>
+    <ng-container *ngSwitchCase="false">
+      <span class=""><a class="nav-link transition" [routerLink]="['/', 'signup']">Sign Up</a></span>
+      <span class=""><a class="nav-link transition" [routerLink]="['/', 'signin']">Sign In</a></span>
+    </ng-container>
+  </ng-container>
+</mat-toolbar>

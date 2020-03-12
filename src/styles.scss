@@ -1,0 +1,157 @@
+$blue: (
+  50: #e5e8ed,
+  100: #d3d8e0,
+  200: #7b8ba3,
+  300: #5f7eab,
+  400: #445b7d,
+  500: #233e66,
+  600: #1f385e,
+  700: #1a3053,
+  800: #152849,
+  900: #0c1b38,
+  A100: #729dff,
+  A200: #3f7aff,
+  A400: #0c56ff,
+  A700: #004af1,
+  A800: #4F6585,
+  A900: #a7b2c2,
+  B100: #e9ebef,
+  B200: #f3f4f6
+,  contrast:
+    (
+      50: #000000,
+      100: #000000,
+      200: #000000,
+      300: #ffffff,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+      A100: #000000,
+      A200: #ffffff,
+      A400: #ffffff,
+      A700: #ffffff
+    )
+);
+
+$light-blue: (
+  20: #f3f6f9,
+  50: #cce6f6,
+  100: #99cded,
+  200: #66b4e3,
+  300: #339bda,
+  400: #05a1ff,
+  500: #0082d1,
+  600: #0072b7,
+  700: #00629e,
+  800: #005284,
+  900: #00436b,
+  A100: #6bc7ff,
+  A200: #84d1ff,
+  A400: #9edaff,
+  A700: #003351,
+  A800: #1D82D1,
+  contrast:
+    (
+      50: #000000,
+      100: #000000,
+      200: #000000,
+      300: #ffffff,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+      A100: #000000,
+      A200: #000000,
+      A400: #000000,
+      A700: #ffffff
+    )
+);
+
+$yellow: (
+  100: #fff3d7,
+  200: #ffeab3,
+  300: #ffe090,
+  400: #ffd86d,
+  500: #ffcf40,
+  600: #e5b939,
+  700: #cca533,
+  800: #005284,
+  900: #00436b
+);
+$green: (
+  50: #f6f9e6,
+  100: #ecf3cd,
+  200: #d8e79b,
+  300: #c5dc69,
+  400: #b1d037,
+  500: #9ec405,
+  600: #8db004,
+  700: #00629e,
+  800: #005284,
+  900: #00436b
+);
+$red: (
+  50: #ffeceb,
+  100: #fedad8,
+  200: #fdb6b1,
+  300: #fd918b,
+  400: #fc6d64,
+  500: #fb483d,
+  600: #dd3830,
+  700: #c5322b,
+  800: #005284,
+  900: #00436b,
+  A100: #FCB6B1
+);
+
+$grey: (
+  50: #A7B2C2,
+  100: #E9EBEF,
+  200: #7A8BA3,
+  300: #333333
+);
+
+.snackbar-success {
+  margin-top: 10px !important;
+  background: mat-color($green, 100);
+  border: solid mat-color($green, 600) 1px;
+  // color: map_get(map_get($app-theme, foreground), base);
+  simple-snack-bar {
+    padding: 10px 0;
+  }
+}
+
+.snackbar-error {
+  margin-top: 10px !important;
+  background: mat-color($red, 100);
+  border: solid mat-color($red, 600) 1px;
+  // color: map_get(map_get($app-theme, foreground), base);
+  simple-snack-bar {
+    padding: 10px 0;
+  }
+}
+
+.snackbar-warning {
+  margin-top: 10px !important;
+  background: mat-color($yellow, 100);
+  border: solid mat-color($yellow, 600) 1px;
+  // color: map_get(map_get($app-theme, foreground), base);
+  simple-snack-bar {
+    padding: 10px 0;
+  }
+}
+
+.snackbar-info {
+  margin-top: 10px !important;
+  background: mat-color($blue, 100);
+  border: solid mat-color($blue, 600) 1px;
+  // color: map_get(map_get($app-theme, foreground), base);
+  simple-snack-bar {
+    padding: 10px 0;
+  }
+}

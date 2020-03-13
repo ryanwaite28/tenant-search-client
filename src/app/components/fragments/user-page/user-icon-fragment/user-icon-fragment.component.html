@@ -1,0 +1,10 @@
+<mat-card id="user-icon-fragment-container">
+  <h1>Update Icon</h1>
+  <hr/>
+
+  <form #iconForm (ngSubmit)="onSubmit(iconForm)">
+    <input #iconInput class="block" type="file" id="icon_input" name="icon" accept="image/*"/>
+    <br/>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+</mat-card>

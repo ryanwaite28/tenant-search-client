@@ -29,7 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .middle-container-1 {
   display: block;
   margin: 25px auto;
-  width: 1000px;
+  width: 1200px;
   max-width: 100%;
 }
 
@@ -234,7 +234,7 @@ section.content-box {
 }
 
 .home-bio-img {
-  width: 250px;
+  width: 200px;
   max-width: 100%;
   border-radius: 150px;
   padding: 3px;
@@ -243,7 +243,6 @@ section.content-box {
   margin: auto;
   margin-bottom: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  cursor: pointer;
 }
 
 .user-icon-1 {

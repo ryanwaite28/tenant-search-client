@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../interfaces/app-store.interface';
 import { UserState } from '../../../interfaces/user-state.interface';
 import { Observable } from 'rxjs';
+import { GetService } from 'src/app/services/client/get.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-page',
@@ -14,9 +16,16 @@ export class WelcomePageComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private GET: GetService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.GET.checkUserSession().subscribe(
+      (user) => {
+        console.log(user);
+      }
+    );
   }
 
 }

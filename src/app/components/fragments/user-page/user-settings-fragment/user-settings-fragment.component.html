@@ -1,0 +1,87 @@
+<mat-card id="user-settings-fragment-container" *ngIf="user">
+  <h1>Settings</h1>
+  <hr/>
+
+  <ng-container [ngSwitch]="user.account_type">
+    <!-- Home Owner -->
+    <form *ngSwitchCase="USER_ACCOUNT_TYPES.HOME_OWNER" [formGroup]="homeOwnerSettingsForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Bio <small>({{ homeOwnerSettingsForm.value.bio.length }}/250)</small></mat-label>
+        <textarea matInput formControlName="bio"></textarea>
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <div class="mat-form-field">
+        <mat-label>Search Status</mat-label>
+        <br/>
+        <br/>
+        <mat-radio-group #searchStatusesGroup aria-label="Choose Search Status" formControlName="search_status">
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.NOT_LOOKING" style="margin-right: 20px">
+            {{ SEARCH_STATUS_LABELS.NOT_LOOKING }}
+          </mat-radio-button>
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.PASSIVE" style="margin-right: 20px">
+            {{ SEARCH_STATUS_LABELS.PASSIVE }}
+          </mat-radio-button>
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.ACTIVE">
+            {{ SEARCH_STATUS_LABELS.ACTIVE }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <br/>
+        <br/>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+
+    <!-- Tenant -->
+    <form *ngSwitchCase="USER_ACCOUNT_TYPES.TENANT" [formGroup]="tenantSettingsForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Bio <small>({{ tenantSettingsForm.value.bio.length }}/250)</small></mat-label>
+        <textarea matInput formControlName="bio"></textarea>
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <div class="mat-form-field">
+        <mat-label>Search Status</mat-label>
+        <br/>
+        <br/>
+        <mat-radio-group #searchStatusesGroup aria-label="Choose Search Status" formControlName="search_status">
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.NOT_LOOKING" style="margin-right: 20px">
+            {{ SEARCH_STATUS_LABELS.NOT_LOOKING }}
+          </mat-radio-button>
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.PASSIVE" style="margin-right: 20px">
+            {{ SEARCH_STATUS_LABELS.PASSIVE }}
+          </mat-radio-button>
+          <mat-radio-button radioGroup="searchStatusesGroup" [value]="SEARCH_STATUS.ACTIVE">
+            {{ SEARCH_STATUS_LABELS.ACTIVE }}
+          </mat-radio-button>
+        </mat-radio-group>
+        <br/>
+        <br/>
+      </div>
+
+      <mat-form-field class="">
+        <mat-label>Credit Score</mat-label>
+        <input matInput type="number" formControlName="credit_score" />
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Gross Income</mat-label>
+        <input matInput type="number" formControlName="gross_income" />
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Net Income</mat-label>
+        <input matInput type="number" formControlName="net_income" />
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Number of Income Sources</mat-label>
+        <input matInput type="number" formControlName="income_sources_count" />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </ng-container>
+</mat-card>

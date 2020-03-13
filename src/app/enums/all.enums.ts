@@ -1,3 +1,14 @@
+export enum USER_ACCOUNT_TYPE_LABELS {
+  TENANT = 'Tenant',
+  HOME_OWNER = 'Home Owner',
+}
+
+export enum SEARCH_STATUS_LABELS {
+  NOT_LOOKING = 'Not Looking',
+  PASSIVE = 'Passive',
+  ACTIVE = 'Active',
+}
+
 export enum LEASE_TYPES {
   MONTH = 'MONTH',
   YEAR = 'YEAR',
@@ -8,9 +19,10 @@ export enum USER_ACCOUNT_TYPES {
   HOME_OWNER = 'HOME_OWNER',
 }
 
-export enum USER_ACCOUNT_TYPE_LABELS {
-  TENANT = 'Tenant',
-  HOME_OWNER = 'Home Owner',
+export enum SEARCH_STATUS {
+  NOT_LOOKING = 'NOT_LOOKING',
+  PASSIVE = 'PASSIVE',
+  ACTIVE = 'ACTIVE',
 }
 
 export enum NOTIFICATION_TYPE {

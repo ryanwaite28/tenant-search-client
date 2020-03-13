@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -35,8 +37,8 @@ import {
   MatTooltipModule,
   MatProgressBarModule
 } from '@angular/material';
-import { AppStoreObj, AppEffectsList } from './stores/app.store';
 
+import { AppStoreObj, AppEffectsList } from './stores/app.store';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './components/pages/welcome-page/welcome-page.component';
 import { NavbarComponent } from './components/fragments/navbar/navbar.component';
@@ -44,14 +46,24 @@ import { FooterComponent } from './components/fragments/footer/footer.component'
 import { SignupPageComponent } from './components/pages/signup-page/signup-page.component';
 import { SigninPageComponent } from './components/pages/signin-page/signin-page.component';
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
-
 import { ClientService } from './services/client/client.service';
 import { GetService } from './services/client/get.service';
 import { PostService } from './services/client/post.service';
 import { PutService } from './services/client/put.service';
 import { DeleteService } from './services/client/delete.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
+import { UserSettingsFragmentComponent } from './components/fragments/user-page/user-settings-fragment/user-settings-fragment.component';
+import { UserHomeFragmentComponent } from './components/fragments/user-page/user-home-fragment/user-home-fragment.component';
+import { UserIconFragmentComponent } from './components/fragments/user-page/user-icon-fragment/user-icon-fragment.component';
+import { UserAuthGuard } from './guards/auth.guard';
+import { SignedInGuard } from './guards/signed-in.guard';
+import { SignedOutGuard } from './guards/signed-out.guard';
+import { UserLocationPreferencesFragmentComponent } from './components/fragments/user-page/user-location-preferences-fragment/user-location-preferences-fragment.component';
+import { UserHomeListingsFragmentComponent } from './components/fragments/user-page/user-home-listings-fragment/user-home-listings-fragment.component';
+import { UserNotificationsFragmentComponent } from './components/fragments/user-page/user-notifications-fragment/user-notifications-fragment.component';
+import { UserRatingsFragmentComponent } from './components/fragments/user-page/user-ratings-fragment/user-ratings-fragment.component';
+import { UserMessagesFragmentComponent } from './components/fragments/user-page/user-messages-fragment/user-messages-fragment.component';
+import { UserTenantRequestsFragmentComponent } from './components/fragments/user-page/user-tenant-requests-fragment/user-tenant-requests-fragment.component';
+import { UserHomeRequestsFragmentComponent } from './components/fragments/user-page/user-home-requests-fragment/user-home-requests-fragment.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +73,17 @@ import { DatePipe } from '@angular/common';
     FooterComponent,
     SignupPageComponent,
     SigninPageComponent,
-    UserPageComponent
+    UserPageComponent,
+    UserSettingsFragmentComponent,
+    UserHomeFragmentComponent,
+    UserIconFragmentComponent,
+    UserLocationPreferencesFragmentComponent,
+    UserHomeListingsFragmentComponent,
+    UserNotificationsFragmentComponent,
+    UserRatingsFragmentComponent,
+    UserMessagesFragmentComponent,
+    UserTenantRequestsFragmentComponent,
+    UserHomeRequestsFragmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +131,10 @@ import { DatePipe } from '@angular/common';
     GetService,
     PostService,
     PutService,
-    DeleteService
+    DeleteService,
+    UserAuthGuard,
+    SignedInGuard,
+    SignedOutGuard
   ],
   exports: [],
   bootstrap: [AppComponent]

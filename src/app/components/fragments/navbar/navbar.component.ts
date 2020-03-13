@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  sign_out() {
+  sign_out(event) {
     this.GET.sign_out().subscribe(
       (response) => {
         console.log(response);

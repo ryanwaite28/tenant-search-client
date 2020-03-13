@@ -33,4 +33,33 @@ export class PutService extends ClientService {
     );
   }
 
+  update_profile_settings(data, id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.put(this.API_PREFIX + '/users/' + id + '/settings', data, httpOptions).pipe(
+      map((response: any) => {
+        this.store.dispatch(UserActions.USER_SIGNIN_ACTION(response.user));
+        return response;
+      })
+    );
+  }
+
+  update_profile_icon(formData, id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.put(this.API_PREFIX + '/users/' + id + '/icon', formData, httpOptions).pipe(
+      map((response: any) => {
+        this.store.dispatch(UserActions.USER_SIGNIN_ACTION(response.user));
+        return response;
+      })
+    );
+  }
 }

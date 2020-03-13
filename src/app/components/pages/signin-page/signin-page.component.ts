@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PutService } from 'src/app/services/client/put.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-signin-page',
@@ -21,6 +22,7 @@ export class SigninPageComponent implements OnInit {
   constructor(
     private router: Router,
     private PUT: PutService,
+    private utilityService: UtilityService
   ) { }
 
   ngOnInit() {
@@ -31,12 +33,16 @@ export class SigninPageComponent implements OnInit {
     this.PUT.sign_in(this.signinForm.value).subscribe(
       (response) => {
         console.log(response);
+        this.utilityService.showSuccessSnackbar(
+          response.message
+        );
         this.router.navigate(['/', 'users', response.user.id]);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
-        this.error = error;
-        this.errorMessage = error.error.message;
+        this.utilityService.showErrorSnackbar(
+          error.error.message
+        );
       }
     );
   }

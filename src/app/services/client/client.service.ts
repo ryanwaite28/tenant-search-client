@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ClientService {
+  DOMAIN: string;
   API_PREFIX: string;
 
   constructor(
     public http: HttpClient
   ) {
     const isProd = window.location.origin.includes('herokuapp'); // process.env.DEV_OR_PROD === 'PRODUCTION';
-    const api_domain = isProd ? 'https://rmw-hotspot-server.herokuapp.com/main' : `http://localhost:8000/main`;
-    this.API_PREFIX = api_domain;
-    console.log({ isProd, api_domain });
+    this.DOMAIN = isProd ? 'https://rmw-hotspot-server.herokuapp.com' : `http://localhost:8000`;
+    const apiDomain = this.DOMAIN + '/main';
+    this.API_PREFIX = apiDomain;
+    console.log({ isProd, apiDomain });
   }
 }

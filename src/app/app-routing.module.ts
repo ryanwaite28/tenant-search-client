@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {
-  Route,
   Routes,
   RouterModule
 } from '@angular/router';
@@ -8,7 +7,12 @@ import { WelcomePageComponent } from './components/pages/welcome-page/welcome-pa
 import { SignupPageComponent } from './components/pages/signup-page/signup-page.component';
 import { SigninPageComponent } from './components/pages/signin-page/signin-page.component';
 import { UserPageComponent } from './components/pages/user-page/user-page.component';
-
+import { UserSettingsFragmentComponent } from './components/fragments/user-page/user-settings-fragment/user-settings-fragment.component';
+import { UserHomeFragmentComponent } from './components/fragments/user-page/user-home-fragment/user-home-fragment.component';
+import { UserAuthGuard } from './guards/auth.guard';
+import { SignedOutGuard } from './guards/signed-out.guard';
+import { SignedInGuard } from './guards/signed-in.guard';
+import { UserIconFragmentComponent } from './components/fragments/user-page/user-icon-fragment/user-icon-fragment.component';
 
 const routes: Routes = [
   {
@@ -24,17 +28,58 @@ const routes: Routes = [
   {
     path: 'signup',
     pathMatch: 'full',
-    component: SignupPageComponent
+    component: SignupPageComponent,
+    canActivate: [SignedOutGuard],
+    data: {
+      canActivateErrorMessage: `You are already signed in.`,
+    },
   },
   {
     path: 'signin',
     pathMatch: 'full',
-    component: SigninPageComponent
+    component: SigninPageComponent,
+    canActivate: [SignedOutGuard],
+    data: {
+      canActivateErrorMessage: `You are already signed in.`,
+    },
   },
   {
     path: 'users/:user_id',
-    pathMatch: 'full',
-    component: UserPageComponent
+    data: {
+      authParamsProp: 'user_id',
+    },
+    component: UserPageComponent,
+    canActivateChild: [UserAuthGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: UserHomeFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'settings',
+        component: UserSettingsFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'icon',
+        component: UserIconFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+    ]
   },
 
   /**

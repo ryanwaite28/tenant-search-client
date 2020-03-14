@@ -32,4 +32,32 @@ export class PostService extends ClientService {
       })
     );
   }
+
+  create_location_preference(data, id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.post(this.API_PREFIX + '/users/' + id + '/location-preferences', data, httpOptions).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
+  create_home_listing(formData, id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.post(this.API_PREFIX + '/users/' + id + '/home-listings', formData, httpOptions).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 }

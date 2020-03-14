@@ -1,6 +1,6 @@
-<div id="user-page-container" class="middle-container-1" *ngIf="user">
-  <div fxFlexLayout="row wrap" fxLayoutGap="20px">
-    <div fxFlex="35">
+<div id="user-page-container" class="middle-container-2" *ngIf="user">
+  <div class="columns">
+    <div class="column is-one-third">
       <mat-card>
         <h3 class="text-center">Hello {{ displayName }}!</h3>
         <img
@@ -16,24 +16,26 @@
           <a mat-list-item title="Go to settings page" [routerLink]="['/', 'users', user.id, 'settings']">Settings</a>
           <a mat-list-item title="Go to icon page to update icon" [routerLink]="['/', 'users', user.id, 'icon']">Icon</a>
           <a mat-list-item title="Go to notifications page" [routerLink]="['/', 'users', user.id, 'notifications']">Notifications</a>
+          <a mat-list-item title="Go to messages page" [routerLink]="['/', 'users', user.id, 'messages']">Messages</a>
 
           <br/>
 
           <ng-container [ngSwitch]="user.account_type">
             <ng-container *ngSwitchCase="USER_ACCOUNT_TYPES.TENANT">
-              <a mat-list-item title="Go to home requests" [routerLink]="['/', 'users', user.id, 'location-requests']">Home Requests</a>
-              <a mat-list-item title="Go to location preferences" [routerLink]="['/', 'users', user.id, 'location-preferences']">Location Preferences</a>
+              <a mat-list-item title="Go to location preferences page" [routerLink]="['/', 'users', user.id, 'location-preferences']">Location Preferences</a>
+              <a mat-list-item title="Go to home requests page" [routerLink]="['/', 'users', user.id, 'home-requests']">Home Requests</a>
             </ng-container>
   
             <ng-container *ngSwitchCase="USER_ACCOUNT_TYPES.HOME_OWNER">
-              <a mat-list-item title="Go to tenant requests" [routerLink]="['/', 'users', user.id, 'tenant-requests']">Tenant Requests</a>
-              <a mat-list-item title="Go to home listings" [routerLink]="['/', 'users', user.id, 'location-listings']">Home Listings</a>
+              <a mat-list-item title="Go to tenant requests page" [routerLink]="['/', 'users', user.id, 'tenant-requests']">Tenant Requests</a>
+              <a mat-list-item title="Go to home listings page" [routerLink]="['/', 'users', user.id, 'home-listings']">Home Listings</a>
+              <a mat-list-item title="Go to create home listing page" [routerLink]="['/', 'users', user.id, 'create-home-listing']">Create Home Listing</a>
             </ng-container>
           </ng-container>
         </mat-nav-list>
       </mat-card>
     </div>
-    <div fxFlex="65">
+    <div class="column is-two-thirds">
       <router-outlet></router-outlet>
     </div>
   </div>

@@ -46,4 +46,15 @@ export class UtilityService {
   showInfoSnackbar(message: string) {
     return this.showSnackbar(message, ['snackbar-info']);
   }
+
+  convertHomeListingLinksToList(links: string): string[] {
+    const regex = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm;
+    if (!links) {
+      return [];
+    }
+
+    const splitter = links.split(',,');
+    const list = splitter.filter((item) => regex.test(item));
+    return list;
+  }
 }

@@ -13,6 +13,15 @@ import { UserAuthGuard } from './guards/auth.guard';
 import { SignedOutGuard } from './guards/signed-out.guard';
 import { SignedInGuard } from './guards/signed-in.guard';
 import { UserIconFragmentComponent } from './components/fragments/user-page/user-icon-fragment/user-icon-fragment.component';
+import { UserNotificationsFragmentComponent } from './components/fragments/user-page/user-notifications-fragment/user-notifications-fragment.component';
+import { UserMessagesFragmentComponent } from './components/fragments/user-page/user-messages-fragment/user-messages-fragment.component';
+import { TenantUserAuthGuard } from './guards/tenant-auth.guard';
+import { UserHomeRequestsFragmentComponent } from './components/fragments/user-page/user-home-requests-fragment/user-home-requests-fragment.component';
+import { HomeOwnerUserAuthGuard } from './guards/home-owner-auth.guard';
+import { UserHomeListingsFragmentComponent } from './components/fragments/user-page/user-home-listings-fragment/user-home-listings-fragment.component';
+import { UserTenantRequestsFragmentComponent } from './components/fragments/user-page/user-tenant-requests-fragment/user-tenant-requests-fragment.component';
+import { UserLocationPreferencesFragmentComponent } from './components/fragments/user-page/user-location-preferences-fragment/user-location-preferences-fragment.component';
+import { UserCreateHomeListingFragmentComponent } from './components/fragments/user-page/user-create-home-listing-fragment/user-create-home-listing-fragment.component';
 
 const routes: Routes = [
   {
@@ -73,6 +82,76 @@ const routes: Routes = [
       {
         path: 'icon',
         component: UserIconFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'notifications',
+        component: UserNotificationsFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'messages',
+        component: UserMessagesFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      // Tenant
+      {
+        path: 'location-preferences',
+        component: UserLocationPreferencesFragmentComponent,
+        canActivate: [TenantUserAuthGuard],
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'home-requests',
+        component: UserHomeRequestsFragmentComponent,
+        canActivate: [TenantUserAuthGuard],
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      // Home Owmer Routes
+      {
+        path: 'create-home-listing',
+        component: UserCreateHomeListingFragmentComponent,
+        canActivate: [HomeOwnerUserAuthGuard],
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'home-listings',
+        component: UserHomeListingsFragmentComponent,
+        canActivate: [HomeOwnerUserAuthGuard],
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'tenant-requests',
+        component: UserTenantRequestsFragmentComponent,
+        canActivate: [HomeOwnerUserAuthGuard],
         data: {
           authParamsProp: 'user_id',
           canActivateErrorMessage: `You do not have permission to access this page.`,

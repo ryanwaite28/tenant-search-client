@@ -1,1 +1,81 @@
-<p>user-location-preferences-fragment works!</p>
+<div id="" class="">
+  <mat-card>
+    <h1>Location Preferences</h1>
+    <hr/>
+
+    <form [formGroup]="locationPreferencesForm" (ngSubmit)="onSubmit()">
+      <div class="flex-container">
+        <mat-form-field class="flex-grow-even space-field">
+          <mat-label>State</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let state of statesList" [value]="state">
+              {{ state.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-grow-even space-field">
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let city of citiesList" [value]="city.city">
+              {{ city.city }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-grow-even space-field">
+          <mat-label>Home Type</mat-label>
+          <mat-select formControlName="home_type">
+            <mat-option [value]="HOME_TYPES.ANY">
+              {{ HOME_TYPE_LABELS.ANY }}
+            </mat-option>
+            <mat-option [value]="HOME_TYPES.CONDO">
+              {{ HOME_TYPE_LABELS.CONDO }}
+            </mat-option>
+            <mat-option [value]="HOME_TYPES.APARTMENT">
+              {{ HOME_TYPE_LABELS.APARTMENT }}
+            </mat-option>
+            <mat-option [value]="HOME_TYPES.TOWN_HOME">
+              {{ HOME_TYPE_LABELS.TOWN_HOME }}
+            </mat-option>
+            <mat-option [value]="HOME_TYPES.HOUSE">
+              {{ HOME_TYPE_LABELS.HOUSE }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </mat-card>
+
+  <br />
+
+  <mat-card>
+    <ng-container *ngIf="!locationPreferencesList.length">
+      <h2>None yet...</h2>
+      <hr/>
+    </ng-container>
+
+    <div>
+      <table class="table is-fullwidth">
+        <thead>
+          <th>State</th>
+          <th>City</th>
+          <th>Home Type</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let preference of locationPreferencesList; index as i">
+            <td>{{ preference.state }}</td>
+            <td>{{ preference.city }}</td>
+            <td>{{ preference.home_type }}</td>
+            <td>
+              <button mat-raised-button color="primary" type="button" (click)="deleteLocationPreference(preference)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</div>

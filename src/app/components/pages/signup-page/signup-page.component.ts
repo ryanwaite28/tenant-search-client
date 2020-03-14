@@ -38,6 +38,15 @@ export class SignupPageComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.signupForm.invalid) {
+      return;
+    }
+    const ask = window.confirm(
+      `Is all information correct? Name fields and Account type cannot be changed.`
+    );
+    if (!ask) {
+      return;
+    }
     this.POST.sign_up(this.signupForm.value).subscribe(
       (response) => {
         console.log(response);

@@ -9,6 +9,16 @@ export enum SEARCH_STATUS_LABELS {
   ACTIVE = 'Active',
 }
 
+export enum HOME_TYPE_LABELS {
+  ANY = 'Any',
+  CONDO = 'Condo',
+  APARTMENT = 'Apartment',
+  TOWN_HOME = 'Town Home',
+  HOUSE = 'House',
+}
+
+/** */
+
 export enum LEASE_TYPES {
   MONTH = 'MONTH',
   YEAR = 'YEAR',
@@ -17,6 +27,14 @@ export enum LEASE_TYPES {
 export enum USER_ACCOUNT_TYPES {
   TENANT = 'TENANT',
   HOME_OWNER = 'HOME_OWNER',
+}
+
+export enum HOME_TYPES {
+  ANY = 'ANY',
+  CONDO = 'CONDO',
+  APARTMENT = 'APARTMENT',
+  TOWN_HOME = 'TOWN_HOME',
+  HOUSE = 'HOUSE',
 }
 
 export enum SEARCH_STATUS {

@@ -20,10 +20,25 @@
       </div>
       <mat-form-field class="">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
+        <input type="email" matInput formControlName="email" />
       </mat-form-field>
-      <div class="mat-form-field">
+      <mat-form-field class="">
         <mat-label>Account Type</mat-label>
+        <mat-select formControlName="account_type">
+          <mat-option [value]="USER_ACCOUNT_TYPES.TENANT">
+            {{ USER_ACCOUNT_TYPE_LABELS.TENANT }}
+          </mat-option>
+          <mat-option [value]="USER_ACCOUNT_TYPES.HOME_OWNER">
+            {{ USER_ACCOUNT_TYPE_LABELS.HOME_OWNER }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <div class="mat-form-field">
+        <mat-label>
+          <span [ngStyle]="{
+            'color': (signupForm.controls.account_type.invalid && touched) ? 'red' : 'black'
+          }">Account Type</span>
+        </mat-label>
         <br/>
         <br/>
         <mat-radio-group #accountTypesGroup aria-label="Choose Account Type" formControlName="account_type">
@@ -36,7 +51,7 @@
         </mat-radio-group>
         <br/>
         <br/>
-      </div>
+      </div> -->
       <mat-form-field class="">
         <mat-label>Password</mat-label>
         <input type="password" matInput formControlName="password" />

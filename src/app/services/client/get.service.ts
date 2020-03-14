@@ -79,4 +79,31 @@ export class GetService extends ClientService {
     );
   }
 
+  user_location_preferences(id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.get(this.API_PREFIX + '/users/' + id + '/location-preferences', httpOptions).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
+  user_home_listings(id) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.get(this.API_PREFIX + '/users/' + id + '/home-listings', httpOptions).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 }

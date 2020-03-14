@@ -33,6 +33,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: 100%;
 }
 
+.middle-container-2 {
+  display: block;
+  margin: 25px auto;
+  width: 1500px;
+  max-width: 100%;
+}
+
 .rotate {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);

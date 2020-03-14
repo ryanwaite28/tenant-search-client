@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClientService } from './client.service';
 import { map } from 'rxjs/operators';
-import * as UserActions from '../../stores/actions/user.actions';
+import {
+  USER_SIGNIN_ACTION,
+} from '../../stores/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 
@@ -25,9 +27,10 @@ export class PutService extends ClientService {
       }),
       withCredentials: true,
     };
-    return this.http.put(this.API_PREFIX + '/users', data, httpOptions).pipe(
+    const endpoint = this.API_PREFIX + '/users';
+    return this.http.put(endpoint, data, httpOptions).pipe(
       map((response: any) => {
-        this.store.dispatch(UserActions.USER_SIGNIN_ACTION(response.user));
+        this.store.dispatch(USER_SIGNIN_ACTION(response.user));
         return response;
       })
     );
@@ -40,9 +43,10 @@ export class PutService extends ClientService {
       }),
       withCredentials: true,
     };
-    return this.http.put(this.API_PREFIX + '/users/' + id + '/settings', data, httpOptions).pipe(
+    const endpoint = this.API_PREFIX + '/users/' + id + '/settings';
+    return this.http.put(endpoint, data, httpOptions).pipe(
       map((response: any) => {
-        this.store.dispatch(UserActions.USER_SIGNIN_ACTION(response.user));
+        this.store.dispatch(USER_SIGNIN_ACTION(response.user));
         return response;
       })
     );
@@ -55,9 +59,25 @@ export class PutService extends ClientService {
       }),
       withCredentials: true,
     };
-    return this.http.put(this.API_PREFIX + '/users/' + id + '/icon', formData, httpOptions).pipe(
+    const endpoint = this.API_PREFIX + '/users/' + id + '/icon';
+    return this.http.put(endpoint, formData, httpOptions).pipe(
       map((response: any) => {
-        this.store.dispatch(UserActions.USER_SIGNIN_ACTION(response.user));
+        this.store.dispatch(USER_SIGNIN_ACTION(response.user));
+        return response;
+      })
+    );
+  }
+
+  update_home_listing(formData, userId, homeId) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = this.API_PREFIX + '/users/' + userId + '/home-listings/' + homeId;
+    return this.http.put(endpoint, formData, httpOptions).pipe(
+      map((response: any) => {
         return response;
       })
     );

@@ -41,7 +41,6 @@ export class UserAuthGuard implements CanActivate, CanActivateChild {
   ): CanActivateReturn {
     return this.GET.checkUserSession().pipe(
       map((user) => {
-        console.log({ user, route, state });
         const canActivate = this.handleCanActivate(user, route);
         return canActivate;
       })
@@ -53,7 +52,6 @@ export class UserAuthGuard implements CanActivate, CanActivateChild {
     if (checkAuth) {
       return true;
     } else {
-      // this.router.navigate(['/', 'signin']);
       const errorMessage =
         route.data.canActivateErrorMessage ||
         'You do not have permission to access this page.';

@@ -35,7 +35,8 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 import { AppStoreObj, AppEffectsList } from './stores/app.store';
@@ -64,6 +65,9 @@ import { UserRatingsFragmentComponent } from './components/fragments/user-page/u
 import { UserMessagesFragmentComponent } from './components/fragments/user-page/user-messages-fragment/user-messages-fragment.component';
 import { UserTenantRequestsFragmentComponent } from './components/fragments/user-page/user-tenant-requests-fragment/user-tenant-requests-fragment.component';
 import { UserHomeRequestsFragmentComponent } from './components/fragments/user-page/user-home-requests-fragment/user-home-requests-fragment.component';
+import { UserPasswordFragmentComponent } from './components/fragments/user-page/user-password-fragment/user-password-fragment.component';
+import { UserCreateHomeListingFragmentComponent } from './components/fragments/user-page/user-create-home-listing-fragment/user-create-home-listing-fragment.component';
+import { HomeListingFormFragmentComponent } from './components/fragments/home-listing-form-fragment/home-listing-form-fragment.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +88,9 @@ import { UserHomeRequestsFragmentComponent } from './components/fragments/user-p
     UserMessagesFragmentComponent,
     UserTenantRequestsFragmentComponent,
     UserHomeRequestsFragmentComponent,
+    UserPasswordFragmentComponent,
+    UserCreateHomeListingFragmentComponent,
+    HomeListingFormFragmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,7 +128,9 @@ import { UserHomeRequestsFragmentComponent } from './components/fragments/user-p
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   entryComponents: [],
   providers: [

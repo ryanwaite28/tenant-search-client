@@ -1,0 +1,111 @@
+<form #formElm id="home-listing-form-container" [formGroup]="homeListingForm" (ngSubmit)="submitChange(formElm, pictureInput)">
+  <mat-form-field class="">
+    <mat-label>Title <small>({{ homeListingForm.value.title.length }}/250)</small></mat-label>
+    <input type="text" matInput name="title" formControlName="title" />
+  </mat-form-field>
+  <div>
+    <p>Picture</p>
+    <input #pictureInput class="block" type="file" class="picture_input" name="picture_file" accept="image/*"/>
+    <button type="button" (click)="pictureInput.value = ''">Clear Image Input</button>
+    <br>
+    <br>
+  </div>
+  <mat-form-field class="">
+    <mat-label>Description <small>({{ homeListingForm.value.description.length }}/500)</small></mat-label>
+    <textarea matInput name="description" formControlName="description"></textarea>
+  </mat-form-field>
+  <mat-form-field class="">
+    <mat-label>Amenities <small>({{ homeListingForm.value.amenities.length }}/500)</small></mat-label>
+    <textarea matInput name="amenities" formControlName="amenities"></textarea>
+  </mat-form-field>
+  <ng-container *ngIf="!isEditing">
+    <mat-form-field class="flex-grow-even space-field">
+      <mat-label>Home Type</mat-label>
+      <mat-select name="home_type" formControlName="home_type">
+        <mat-option [value]="HOME_TYPES.CONDO">
+          {{ HOME_TYPE_LABELS.CONDO }}
+        </mat-option>
+        <mat-option [value]="HOME_TYPES.APARTMENT">
+          {{ HOME_TYPE_LABELS.APARTMENT }}
+        </mat-option>
+        <mat-option [value]="HOME_TYPES.TOWN_HOME">
+          {{ HOME_TYPE_LABELS.TOWN_HOME }}
+        </mat-option>
+        <mat-option [value]="HOME_TYPES.HOUSE">
+          {{ HOME_TYPE_LABELS.HOUSE }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+  <div>
+    <mat-form-field class="">
+      <mat-label>
+        Links
+        <small>({{ homeListingForm.value.links.length }}/1000)</small>
+      </mat-label>
+      <textarea matInput name="links" formControlName="links"></textarea>
+    </mat-form-field>
+    <p>
+      <span>If you have this home listed on other websites, copy and paste the links to them here, separated by two commas and a space</span>
+      <br/>
+      <span>Example: link,, link,, ...etc</span>
+    </p>
+  </div>
+  <br/>
+  <mat-form-field class="">
+    <mat-label>Deposit</mat-label>
+    <input matInput name="deposit" type="number" formControlName="deposit" />
+  </mat-form-field>
+  <mat-form-field class="">
+    <mat-label>Rent</mat-label>
+    <input matInput name="rent" type="number" formControlName="rent" />
+  </mat-form-field>
+  <mat-form-field class="flex-grow-even space-field">
+    <mat-label>Lease Type</mat-label>
+    <mat-select name="lease_type" formControlName="lease_type">
+      <mat-option [value]="LEASE_TYPES.MONTH">
+        Month
+      </mat-option>
+      <mat-option [value]="LEASE_TYPES.YEAR">
+        Year
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="">
+    <mat-label>Lease Duration</mat-label>
+    <input matInput name="lease_duration" type="number" formControlName="lease_duration" />
+  </mat-form-field>
+
+  <ng-container *ngIf="!isEditing">
+    <mat-form-field class="">
+      <mat-label>Street Address <small>({{ homeListingForm.value.street.length }}/250)</small></mat-label>
+      <input matInput name="street" formControlName="street" />
+    </mat-form-field>
+    <mat-form-field class="">
+      <mat-label>Other Address Info <small>({{ homeListingForm.value.street_cont.length }}/250)</small></mat-label>
+      <input matInput name="street_cont" formControlName="street_cont" />
+    </mat-form-field>
+    <mat-form-field class="flex-grow-even space-field">
+      <mat-label>State</mat-label>
+      <mat-select name="state" formControlName="state">
+        <mat-option *ngFor="let state of statesList" [value]="state">
+          {{ state.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="flex-grow-even space-field">
+      <mat-label>City</mat-label>
+      <mat-select name="city" formControlName="city">
+        <mat-option *ngFor="let city of citiesList" [value]="city.city">
+          {{ city.city }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="">
+      <mat-label>Zipcode <small>({{ homeListingForm.value.zipcode.length }}/5)</small></mat-label>
+      <input type="number" matInput name="zipcode" formControlName="zipcode" />
+    </mat-form-field>
+  </ng-container>
+  
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

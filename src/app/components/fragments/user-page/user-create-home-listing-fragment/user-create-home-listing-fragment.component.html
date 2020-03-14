@@ -1,0 +1,9 @@
+<mat-card>
+  <h1>Create Home Listing</h1>
+  <hr>
+
+  <app-home-listing-form-fragment
+    [isEditing]="isEditing"
+    (changesSubmitted)="onSubmit($event)"
+  ></app-home-listing-form-fragment>
+</mat-card>

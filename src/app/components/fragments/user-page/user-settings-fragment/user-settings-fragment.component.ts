@@ -53,7 +53,7 @@ export class UserSettingsFragmentComponent implements OnInit {
 
   handleStoreChange(state: AppState) {
     this.user = state.user;
-    if (this.user.account_type === USER_ACCOUNT_TYPES.TENANT) {
+    if (!this.user || this.user.account_type === USER_ACCOUNT_TYPES.TENANT) {
       this.tenantSettingsForm.setValue({
         email: this.user.email,
         bio: this.user.bio,
@@ -81,7 +81,7 @@ export class UserSettingsFragmentComponent implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-          this.utilityService.showErrorSnackbar(
+          this.utilityService.showSuccessSnackbar(
             response.message
           );
         },

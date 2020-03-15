@@ -1,8 +1,8 @@
-<mat-card id="user-settings-fragment-container" *ngIf="user">
+<mat-card id="user-settings-fragment-container" *ngIf="you">
   <h1>Settings</h1>
   <hr/>
 
-  <ng-container [ngSwitch]="user.account_type">
+  <ng-container [ngSwitch]="you.account_type">
     <!-- Home Owner -->
     <form *ngSwitchCase="USER_ACCOUNT_TYPES.HOME_OWNER" [formGroup]="homeOwnerSettingsForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">

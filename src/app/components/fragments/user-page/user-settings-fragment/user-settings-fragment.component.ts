@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserState } from 'src/app/interfaces/user-state.interface';
+import { UserModel } from 'src/app/interfaces/user-model.interface';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -18,7 +18,7 @@ import { PutService } from 'src/app/services/client/put.service';
   styleUrls: ['./user-settings-fragment.component.scss']
 })
 export class UserSettingsFragmentComponent implements OnInit {
-  user: UserState;
+  you: UserModel;
   USER_ACCOUNT_TYPES = USER_ACCOUNT_TYPES;
   SEARCH_STATUS = SEARCH_STATUS;
   SEARCH_STATUS_LABELS = SEARCH_STATUS_LABELS;
@@ -46,40 +46,40 @@ export class UserSettingsFragmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.subscribe((state: AppState) => {
-      this.handleStoreChange(state);
+    this.store.select('you').subscribe((you: UserModel) => {
+      this.handleUserStoreChange(you);
     });
   }
 
-  handleStoreChange(state: AppState) {
-    this.user = state.user;
-    if (!this.user || this.user.account_type === USER_ACCOUNT_TYPES.TENANT) {
+  handleUserStoreChange(you: UserModel) {
+    this.you = you;
+    if (!this.you || this.you.account_type === USER_ACCOUNT_TYPES.TENANT) {
       this.tenantSettingsForm.setValue({
-        email: this.user.email,
-        bio: this.user.bio,
-        search_status: this.user.search_status,
-        credit_score: this.user.credit_score,
-        gross_income: this.user.gross_income,
-        net_income: this.user.net_income,
-        income_sources_count: this.user.income_sources_count,
+        email: this.you.email,
+        bio: this.you.bio,
+        search_status: this.you.search_status,
+        credit_score: this.you.credit_score,
+        gross_income: this.you.gross_income,
+        net_income: this.you.net_income,
+        income_sources_count: this.you.income_sources_count,
       });
     } else {
       this.homeOwnerSettingsForm.setValue({
-        email: this.user.email,
-        bio: this.user.bio,
-        search_status: this.user.search_status,
+        email: this.you.email,
+        bio: this.you.bio,
+        search_status: this.you.search_status,
       });
     }
   }
 
   onSubmit() {
-    const formValue = this.user.account_type === USER_ACCOUNT_TYPES.TENANT
+    const formValue = this.you.account_type === USER_ACCOUNT_TYPES.TENANT
       ?  this.tenantSettingsForm.value
       : this.homeOwnerSettingsForm.value;
 
-    this.PUT.update_profile_settings(formValue, this.user.id)
+    this.PUT.update_profile_settings(formValue, this.you.id)
       .subscribe(
-        (response: any) => {
+        (response) => {
           console.log(response);
           this.utilityService.showSuccessSnackbar(
             response.message

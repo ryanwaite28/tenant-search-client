@@ -4,6 +4,7 @@ import { LEASE_TYPES, HOME_TYPES, HOME_TYPE_LABELS } from 'src/app/enums/all.enu
 import { statesNameAndCodeList } from 'src/app/_misc/states';
 import { IState } from 'src/app/interfaces/state.interface';
 import { groupedCities } from 'src/app/_misc/cities';
+import { HomeListingModel } from 'src/app/interfaces/home-listing.interface';
 
 @Component({
   selector: 'app-home-listing-form-fragment',
@@ -12,7 +13,7 @@ import { groupedCities } from 'src/app/_misc/cities';
 })
 export class HomeListingFormFragmentComponent implements OnInit {
   @Input() isEditing: boolean;
-  @Input() homeListing;
+  @Input() homeListing: HomeListingModel;
   @Output() changesSubmitted = new EventEmitter<any>();
 
   HOME_TYPES = HOME_TYPES;

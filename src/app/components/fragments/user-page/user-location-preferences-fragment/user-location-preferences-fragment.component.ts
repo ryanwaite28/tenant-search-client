@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DeleteService } from 'src/app/services/client/delete.service';
-import { UserState } from 'src/app/interfaces/user-state.interface';
+import { UserModel } from 'src/app/interfaces/user-model.interface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 import { Store } from '@ngrx/store';
-import { PutService } from 'src/app/services/client/put.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { GetService } from 'src/app/services/client/get.service';
 import { PostService } from 'src/app/services/client/post.service';
@@ -12,10 +11,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { statesNameAndCodeList } from '../../../../_misc/states';
 import { groupedCities } from '../../../../_misc/cities';
 import { IState } from 'src/app/interfaces/state.interface';
-import { MatPaginator, MatSort } from '@angular/material';
-import { merge } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
 import { HOME_TYPES, HOME_TYPE_LABELS } from 'src/app/enums/all.enums';
+import { LocationPreferenceModel } from 'src/app/interfaces/location-preference.interface';
+import { ICity } from 'src/app/interfaces/city.interface';
 
 @Component({
   selector: 'app-user-location-preferences-fragment',
@@ -23,12 +21,11 @@ import { HOME_TYPES, HOME_TYPE_LABELS } from 'src/app/enums/all.enums';
   styleUrls: ['./user-location-preferences-fragment.component.scss']
 })
 export class UserLocationPreferencesFragmentComponent implements OnInit {
-  displayedColumns: string[] = ['state', 'city'];
-  user: UserState;
+  you: UserModel;
   didLoadLocationPreferences = false;
   statesList = statesNameAndCodeList;
-  citiesList = [];
-  locationPreferencesList = [];
+  citiesList: ICity[] = [];
+  locationPreferencesList: LocationPreferenceModel[] = [];
   HOME_TYPES = HOME_TYPES;
   HOME_TYPE_LABELS = HOME_TYPE_LABELS;
   locationPreferencesForm = new FormGroup({
@@ -41,14 +38,13 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
     private store: Store<AppState>,
     private GET: GetService,
     private POST: PostService,
-    private PUT: PutService,
     private DELETE: DeleteService,
     private utilityService: UtilityService
   ) { }
 
   ngOnInit() {
-    this.store.subscribe((state: AppState) => {
-      this.handleStoreChange(state);
+    this.store.select('you').subscribe((you: UserModel) => {
+      this.handleUserStoreChange(you);
     });
     this.locationPreferencesForm.get('state').valueChanges.subscribe(
       (state: IState) => {
@@ -60,8 +56,8 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
   initTable() {
   }
 
-  handleStoreChange(state: AppState) {
-    this.user = state.user;
+  handleUserStoreChange(you: UserModel) {
+    this.you = you;
     if (!this.didLoadLocationPreferences) {
       this.didLoadLocationPreferences = true;
       this.loadLocationPreferences();
@@ -82,8 +78,8 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
   }
 
   loadLocationPreferences() {
-    this.GET.user_location_preferences(this.user.id).subscribe(
-      (response: any) => {
+    this.GET.user_location_preferences(this.you.id).subscribe(
+      (response) => {
         console.log(response);
         this.locationPreferencesList = response.location_preferences;
         this.initTable();
@@ -105,8 +101,8 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
       city: this.locationPreferencesForm.value.city,
       home_type: this.locationPreferencesForm.value.home_type,
     };
-    this.POST.create_location_preference(data, this.user.id).subscribe(
-      (response: any) => {
+    this.POST.create_location_preference(data, this.you.id).subscribe(
+      (response) => {
         console.log(response);
         this.locationPreferencesList.unshift(response.location_preference);
         this.locationPreferencesForm.reset();
@@ -123,14 +119,14 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
     );
   }
 
-  deleteLocationPreference(preference) {
+  deleteLocationPreference(preference: LocationPreferenceModel) {
     const { state, city, home_type } = preference;
     const ask = window.confirm(`Are you sure you want to delete: ${city}, ${state} (${home_type})?`);
     if (!ask) {
       return;
     }
-    this.DELETE.delete_location_preference(preference, this.user.id).subscribe(
-      (response: any) => {
+    this.DELETE.delete_location_preference(preference, this.you.id).subscribe(
+      (response) => {
         console.log(response);
         const index = this.locationPreferencesList.indexOf(preference);
         this.locationPreferencesList.splice(index, 1);

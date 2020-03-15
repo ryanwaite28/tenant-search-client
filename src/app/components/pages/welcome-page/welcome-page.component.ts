@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../interfaces/app-store.interface';
-import { UserState } from '../../../interfaces/user-state.interface';
+import { UserModel } from '../../../interfaces/user-model.interface';
 import { Observable } from 'rxjs';
 import { GetService } from 'src/app/services/client/get.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-  user$: Observable<UserState> = this.store.select(state => state.user);
+  user$: Observable<UserModel> = this.store.select(state => state.user);
 
   constructor(
     private store: Store<AppState>,

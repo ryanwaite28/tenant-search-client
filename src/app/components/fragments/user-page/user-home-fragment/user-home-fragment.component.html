@@ -1,24 +1,24 @@
-<mat-card id="user-home-fragment-container" *ngIf="user">
+<mat-card id="user-home-fragment-container" *ngIf="you">
   <h1>Home</h1>
   <hr/>
 
-  <p><strong>Bio</strong>:<br/>{{ user.bio || '...' }}</p>
+  <p><strong>Bio</strong>:<br/>{{ you.bio || '...' }}</p>
 
   <br/>
 
-  <p><strong>Account Type</strong>: {{ user.account_type }}</p>
-  <p><strong>Search Status</strong>: {{ user.search_status }}</p>
-  <p><strong>Email</strong>: {{ user.email }}</p>
-  <p><strong>Verified</strong>: {{ user.account_verified }}</p>
+  <p><strong>Account Type</strong>: {{ you.account_type }}</p>
+  <p><strong>Search Status</strong>: {{ you.search_status }}</p>
+  <p><strong>Email</strong>: {{ you.email }}</p>
+  <p><strong>Verified</strong>: {{ you.account_verified }}</p>
 
-  <ng-container [ngSwitch]="user.account_type">
+  <ng-container [ngSwitch]="you.account_type">
     <ng-container *ngSwitchCase="USER_ACCOUNT_TYPES.TENANT">
       <br/>
     
-      <p><strong>Credit Score</strong>: {{ user.credit_score }}</p>
-      <p><strong>Gross Income</strong>: ${{ user.gross_income | number }}</p>
-      <p><strong>Net Income</strong>: ${{ user.net_income | number }}</p>
-      <p><strong>Number of Income Sources</strong>: {{ user.income_sources_count | number }}</p>
+      <p><strong>Credit Score</strong>: {{ you.credit_score }}</p>
+      <p><strong>Gross Income</strong>: ${{ you.gross_income | number }}</p>
+      <p><strong>Net Income</strong>: ${{ you.net_income | number }}</p>
+      <p><strong>Number of Income Sources</strong>: {{ you.income_sources_count | number }}</p>
     </ng-container>
   </ng-container>
 </mat-card>

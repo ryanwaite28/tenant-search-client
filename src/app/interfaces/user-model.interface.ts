@@ -1,4 +1,4 @@
-export interface UserState {
+export interface UserModel {
   id: number;
   first_name: string;
   middle_initial: string;

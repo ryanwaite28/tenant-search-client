@@ -5,13 +5,12 @@ import {
   RouterStateSnapshot,
   Router
 } from '@angular/router';
-import { map, flatMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from '../interfaces/app-store.interface';
-import { UserState } from '../interfaces/user-state.interface';
+import { UserModel } from '../interfaces/user-model.interface';
 import { CanActivateReturn } from './_guard';
 import { GetService } from '../services/client/get.service';
-import { of } from 'rxjs';
 
 
 @Injectable({
@@ -29,12 +28,12 @@ export class SignedOutGuard implements CanActivate {
     state: RouterStateSnapshot,
   ): CanActivateReturn {
     return this.GET.checkUserSession().pipe(
-      map((user) => {
-        console.log({ user, route, state });
-        if (user) {
-          this.router.navigate(['/', 'users', user.id]);
+      map((you: UserModel) => {
+        console.log({ you, route, state });
+        if (you) {
+          this.router.navigate(['/', 'users', you.id]);
         }
-        return !user;
+        return !you;
       })
     );
   }

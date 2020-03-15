@@ -68,6 +68,10 @@ import { UserHomeRequestsFragmentComponent } from './components/fragments/user-p
 import { UserPasswordFragmentComponent } from './components/fragments/user-page/user-password-fragment/user-password-fragment.component';
 import { UserCreateHomeListingFragmentComponent } from './components/fragments/user-page/user-create-home-listing-fragment/user-create-home-listing-fragment.component';
 import { HomeListingFormFragmentComponent } from './components/fragments/home-listing-form-fragment/home-listing-form-fragment.component';
+import { HomeListingPageComponent } from './components/pages/home-listing-page/home-listing-page.component';
+import { UserHomeListingFragmentComponent } from './components/fragments/user-page/user-home-listing-fragment/user-home-listing-fragment.component';
+import { HomeListingFragmentComponent } from './components/fragments/home-listing-fragment/home-listing-fragment.component';
+import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 
 @NgModule({
   declarations: [
@@ -91,6 +95,10 @@ import { HomeListingFormFragmentComponent } from './components/fragments/home-li
     UserPasswordFragmentComponent,
     UserCreateHomeListingFragmentComponent,
     HomeListingFormFragmentComponent,
+    HomeListingPageComponent,
+    UserHomeListingFragmentComponent,
+    HomeListingFragmentComponent,
+    UserFullNamePipe,
   ],
   imports: [
     BrowserModule,

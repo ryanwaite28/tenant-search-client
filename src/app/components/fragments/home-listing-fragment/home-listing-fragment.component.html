@@ -1,0 +1,53 @@
+<mat-card class="home-listing-card" >
+  <div class="columns">
+    <div class="column">
+      <h2 class="title is-4">
+        <a [routerLink]="['/', 'users', user.id, 'home-listings', home.id]">{{ home.title }}</a>
+      </h2>
+      <ng-container *ngIf="home.icon_id">
+        <img class="" [src]="home.icon_link" [alt]="home.title">
+      </ng-container>
+    </div>
+    <div class="column">
+      <div class="home-info">
+        <p><strong>Description</strong>:<br/>{{ home.description }}</p>
+    
+        <p><strong>Amenities</strong>:<br/>{{ home.amenities || 'None specified...' }}</p>
+        <p><strong>Home Type</strong>: {{ home.home_type }}</p>
+        
+        <p><strong>Deposit</strong>: ${{ home.deposit | number }}</p>
+        <p><strong>Rent</strong>: ${{ home.rent | number }}</p>
+        <p><strong>Lease Type</strong>: {{ home.lease_type }}</p>
+        <p><strong>Lease Duration</strong>: {{ home.lease_duration }}</p>
+    
+        <p><strong>Street Address</strong>: {{ home.street }}{{ home.street_cont && ' - ' + home.street_cont }}</p>
+        <p><strong>City</strong>: {{ home.city }}</p>
+        <p><strong>State</strong>: {{ home.state }}</p>
+        <p><strong>Zipcode</strong>: {{ home.zipcode || 'Not specified...' }}</p>
+
+        <span><strong>Links</strong>:</span>
+        <ul class="links-list" *ngIf="home.linksList">
+          <li *ngFor="let link of home.linksList">
+            <a [href]="link">{{ link }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <section *ngIf="isOwner">
+    <span>
+      <button mat-raised-button color="accent" type="button" (click)="home.isEditing = !home.isEditing">{{ home.isEditing ? 'Cancel Edit' : 'Edit' }}</button>
+      &nbsp;
+      <button mat-raised-button color="primary" type="button" (click)="deleteClick.emit(home)">Delete</button>
+    </span>
+    <div *ngIf="home.isEditing">
+      <hr>
+      <p><strong>Editing</strong></p>
+      <app-home-listing-form-fragment
+        [isEditing]="true"
+        [homeListing]="home"
+        (changesSubmitted)="onEditSubmit($event, home)"
+      ></app-home-listing-form-fragment>
+    </div>
+  </section>
+</mat-card>

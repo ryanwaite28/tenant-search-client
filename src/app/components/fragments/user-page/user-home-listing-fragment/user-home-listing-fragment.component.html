@@ -1,0 +1,59 @@
+<div *ngIf="home">
+  <app-home-listing-fragment
+    [home]="home"
+    [user]="you"
+    (deleteClick)="deleteHomeListing($event)"
+  ></app-home-listing-fragment>
+
+  <br/>
+
+  <mat-card>
+    <h1 class="">Users looking for homes in <strong>{{ home.state }}</strong></h1>
+    <hr/>
+
+    <div *ngFor="let preference of locationPreferencesList; index as i">
+      <div class="columns">
+        <div class="column is-full">
+          <div class="chip">
+            <img
+              [src]="preference.user.icon_link || defaultIconUrl"
+              [alt]="preference.user.first_name"
+            />
+            {{ '' | userFullName : preference.user }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="columns"
+      >
+        <div class="column is-two-quarters">
+          <p><strong>Account Type</strong>: {{ preference.user.account_type }}</p>
+          <p><strong>Search Status</strong>: {{ preference.user.search_status }}</p>
+          <p><strong>Email</strong>: {{ preference.user.email }}</p>
+          <p><strong>Verified</strong>: {{ preference.user.account_verified }}</p>
+          <p><strong>Credit Score</strong>: {{ preference.user.credit_score }}</p>
+          <p><strong>Gross Income</strong>: ${{ preference.user.gross_income | number }}</p>
+          <p><strong>Net Income</strong>: ${{ preference.user.net_income | number }}</p>
+          <p><strong>Number of Income Sources</strong>: {{ preference.user.income_sources_count | number }}</p>
+        </div>
+        <div class="column is-one-quarter">
+          <p>
+            <strong>Preference</strong><br/>
+            <span>State: {{ preference.state }}</span><br/>
+            <span>City: {{ preference.city }}</span>
+          </p>
+        </div>
+        <div class="column is-one-quarter">
+          <button mat-raised-button color="primary" type="button">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+    <button
+      *ngIf="!isEndOfResults"
+      mat-raised-button
+      color="primary"
+      type="button">Load More Results</button>
+  </mat-card>
+</div>

@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
-import {
-  Routes,
-  RouterModule
-} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { WelcomePageComponent } from './components/pages/welcome-page/welcome-page.component';
 import { SignupPageComponent } from './components/pages/signup-page/signup-page.component';
 import { SigninPageComponent } from './components/pages/signin-page/signin-page.component';
@@ -22,6 +19,7 @@ import { UserHomeListingsFragmentComponent } from './components/fragments/user-p
 import { UserTenantRequestsFragmentComponent } from './components/fragments/user-page/user-tenant-requests-fragment/user-tenant-requests-fragment.component';
 import { UserLocationPreferencesFragmentComponent } from './components/fragments/user-page/user-location-preferences-fragment/user-location-preferences-fragment.component';
 import { UserCreateHomeListingFragmentComponent } from './components/fragments/user-page/user-create-home-listing-fragment/user-create-home-listing-fragment.component';
+import { UserHomeListingFragmentComponent } from './components/fragments/user-page/user-home-listing-fragment/user-home-listing-fragment.component';
 
 const routes: Routes = [
   {
@@ -141,6 +139,16 @@ const routes: Routes = [
       {
         path: 'home-listings',
         component: UserHomeListingsFragmentComponent,
+        canActivate: [HomeOwnerUserAuthGuard],
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
+        path: 'home-listings/:home_listing_id',
+        component: UserHomeListingFragmentComponent,
         canActivate: [HomeOwnerUserAuthGuard],
         data: {
           authParamsProp: 'user_id',

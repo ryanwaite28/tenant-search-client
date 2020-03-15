@@ -1,35 +1,35 @@
-<div id="user-page-container" class="middle-container-2" *ngIf="user">
+<div id="user-page-container" class="middle-container-2" *ngIf="you">
   <div class="columns">
     <div class="column is-one-third">
       <mat-card>
-        <h3 class="text-center">Hello {{ displayName }}!</h3>
+        <h3 class="text-center">Hello {{ '' | userFullName : you }}!</h3>
         <img
           class="home-bio-img"
-          [src]="user.icon_link || defaultIconUrl"
-          [alt]="displayName"
+          [src]="you.icon_link || defaultIconUrl"
+          [alt]="you.first_name"
         />
       </mat-card>
       <br/>
       <mat-card>
         <mat-nav-list>
-          <a mat-list-item title="Go to home page" [routerLink]="['/', 'users', user.id]">Home</a>
-          <a mat-list-item title="Go to settings page" [routerLink]="['/', 'users', user.id, 'settings']">Settings</a>
-          <a mat-list-item title="Go to icon page to update icon" [routerLink]="['/', 'users', user.id, 'icon']">Icon</a>
-          <a mat-list-item title="Go to notifications page" [routerLink]="['/', 'users', user.id, 'notifications']">Notifications</a>
-          <a mat-list-item title="Go to messages page" [routerLink]="['/', 'users', user.id, 'messages']">Messages</a>
+          <a mat-list-item title="Go to home page" [routerLink]="['/', 'users', you.id]">Home</a>
+          <a mat-list-item title="Go to settings page" [routerLink]="['/', 'users', you.id, 'settings']">Settings</a>
+          <a mat-list-item title="Go to icon page to update icon" [routerLink]="['/', 'users', you.id, 'icon']">Icon</a>
+          <a mat-list-item title="Go to notifications page" [routerLink]="['/', 'users', you.id, 'notifications']">Notifications</a>
+          <a mat-list-item title="Go to messages page" [routerLink]="['/', 'users', you.id, 'messages']">Messages</a>
 
           <br/>
 
-          <ng-container [ngSwitch]="user.account_type">
+          <ng-container [ngSwitch]="you.account_type">
             <ng-container *ngSwitchCase="USER_ACCOUNT_TYPES.TENANT">
-              <a mat-list-item title="Go to location preferences page" [routerLink]="['/', 'users', user.id, 'location-preferences']">Location Preferences</a>
-              <a mat-list-item title="Go to home requests page" [routerLink]="['/', 'users', user.id, 'home-requests']">Home Requests</a>
+              <a mat-list-item title="Go to location preferences page" [routerLink]="['/', 'users', you.id, 'location-preferences']">Location Preferences</a>
+              <a mat-list-item title="Go to home requests page" [routerLink]="['/', 'users', you.id, 'home-requests']">Home Requests</a>
             </ng-container>
   
             <ng-container *ngSwitchCase="USER_ACCOUNT_TYPES.HOME_OWNER">
-              <a mat-list-item title="Go to tenant requests page" [routerLink]="['/', 'users', user.id, 'tenant-requests']">Tenant Requests</a>
-              <a mat-list-item title="Go to home listings page" [routerLink]="['/', 'users', user.id, 'home-listings']">Home Listings</a>
-              <a mat-list-item title="Go to create home listing page" [routerLink]="['/', 'users', user.id, 'create-home-listing']">Create Home Listing</a>
+              <a mat-list-item title="Go to tenant requests page" [routerLink]="['/', 'users', you.id, 'tenant-requests']">Tenant Requests</a>
+              <a mat-list-item title="Go to home listings page" [routerLink]="['/', 'users', you.id, 'home-listings']">Home Listings</a>
+              <a mat-list-item title="Go to create home listing page" [routerLink]="['/', 'users', you.id, 'create-home-listing']">Create Home Listing</a>
             </ng-container>
           </ng-container>
         </mat-nav-list>

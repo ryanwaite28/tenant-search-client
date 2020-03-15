@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PutService } from 'src/app/services/client/put.service';
 import { AppState } from 'src/app/interfaces/app-store.interface';
-import { UserState } from 'src/app/interfaces/user-state.interface';
+import { UserModel } from 'src/app/interfaces/user-model.interface';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-icon-fragment.component.scss']
 })
 export class UserIconFragmentComponent implements OnInit {
-  user: UserState;
+  you: UserModel;
 
   constructor(
     private store: Store<AppState>,
@@ -21,19 +21,19 @@ export class UserIconFragmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.subscribe((state: AppState) => {
-      this.handleStoreChange(state);
+    this.store.select('you').subscribe((you: UserModel) => {
+      this.handleUserStoreChange(you);
     });
   }
 
-  handleStoreChange(state: AppState) {
-    this.user = state.user;
+  handleUserStoreChange(you: UserModel) {
+    this.you = you;
   }
 
   onSubmit(iconForm: HTMLFormElement) {
     const formData = new FormData(iconForm);
-    this.PUT.update_profile_icon(formData, this.user.id).subscribe(
-      (response: any) => {
+    this.PUT.update_profile_icon(formData, this.you.id).subscribe(
+      (response) => {
         this.utilityService.showErrorSnackbar(
           response.message
         );

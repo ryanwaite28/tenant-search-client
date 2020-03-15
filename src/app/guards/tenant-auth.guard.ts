@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { getRouteParamKey } from '../_misc/chamber';
 import { AppState } from '../interfaces/app-store.interface';
-import { UserState } from '../interfaces/user-state.interface';
+import { UserModel } from '../interfaces/user-model.interface';
 import { UtilityService } from '../services/utility.service';
 import { CanActivateReturn } from './_guard';
 import { GetService } from '../services/client/get.service';
@@ -41,18 +41,18 @@ export class TenantUserAuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot,
   ): CanActivateReturn {
     return this.GET.checkUserSession().pipe(
-      map((user) => {
-        console.log({ user, route, state });
+      map((you) => {
+        console.log({ you, route, state });
         const canActivate =
-          this.handleCanActivate(user, route) &&
-          user.account_type === USER_ACCOUNT_TYPES.TENANT;
+          this.handleCanActivate(you, route) &&
+          you.account_type === USER_ACCOUNT_TYPES.TENANT;
         return canActivate;
       })
     );
   }
 
-  handleCanActivate(user: UserState, route: ActivatedRouteSnapshot) {
-    const checkAuth = this.checkAuth(user, route);
+  handleCanActivate(you: UserModel, route: ActivatedRouteSnapshot) {
+    const checkAuth = this.checkAuth(you, route);
     if (checkAuth) {
       return true;
     } else {
@@ -65,11 +65,11 @@ export class TenantUserAuthGuard implements CanActivate, CanActivateChild {
     }
   }
 
-  checkAuth(user: UserState, route: ActivatedRouteSnapshot): boolean {
-    if (!user) { return false; }
+  checkAuth(you: UserModel, route: ActivatedRouteSnapshot): boolean {
+    if (!you) { return false; }
     const id = getRouteParamKey(route.data.authParamsProp, route, true);
     const userId = parseInt(id, 10);
-    const youAreUser = userId === user.id;
+    const youAreUser = userId === you.id;
     return youAreUser;
   }
 }

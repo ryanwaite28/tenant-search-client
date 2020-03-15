@@ -4,6 +4,13 @@ import { ClientService } from './client.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 import { map } from 'rxjs/operators';
+import { HomeListingModel } from 'src/app/interfaces/home-listing.interface';
+import { LocationPreferenceModel } from 'src/app/interfaces/location-preference.interface';
+import { Observable } from 'rxjs';
+import {
+  DeleteUserLocationPreferenceResponse, DeleteUserHomeListingResponse,
+
+} from 'src/app/interfaces/responses.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +23,10 @@ export class DeleteService extends ClientService {
     super(http);
   }
 
-  delete_location_preference(preference, id) {
+  delete_location_preference(
+    preference: LocationPreferenceModel,
+    id: string | number
+  ): Observable<DeleteUserLocationPreferenceResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -25,13 +35,16 @@ export class DeleteService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users/' + id + '/location-preferences/' + preference.id;
     return this.http.delete(endpoint, httpOptions).pipe(
-      map((response: any) => {
+      map((response: DeleteUserLocationPreferenceResponse) => {
         return response;
       })
     );
   }
 
-  delete_home_listing(home, id) {
+  delete_home_listing(
+    home: HomeListingModel,
+    id: string | number
+  ): Observable<DeleteUserHomeListingResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -40,7 +53,7 @@ export class DeleteService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users/' + id + '/home-listings/' + home.id;
     return this.http.delete(endpoint, httpOptions).pipe(
-      map((response: any) => {
+      map((response: DeleteUserHomeListingResponse) => {
         return response;
       })
     );

@@ -7,6 +7,13 @@ import {
 } from '../../stores/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
+import { Observable } from 'rxjs';
+import {
+  SignInResponse,
+  PutUserProfileSettingsResponse,
+  PutUserProfileIconResponse,
+  PutUserHomeListingResponse
+} from 'src/app/interfaces/responses.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +27,7 @@ export class PutService extends ClientService {
     super(http);
   }
 
-  sign_in(data) {
+  sign_in(data): Observable<SignInResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -29,14 +36,14 @@ export class PutService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users';
     return this.http.put(endpoint, data, httpOptions).pipe(
-      map((response: any) => {
+      map((response: SignInResponse) => {
         this.store.dispatch(USER_SIGNIN_ACTION(response.user));
         return response;
       })
     );
   }
 
-  update_profile_settings(data, id) {
+  update_profile_settings(data, id): Observable<PutUserProfileSettingsResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -45,14 +52,14 @@ export class PutService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users/' + id + '/settings';
     return this.http.put(endpoint, data, httpOptions).pipe(
-      map((response: any) => {
+      map((response: PutUserProfileSettingsResponse) => {
         this.store.dispatch(USER_SIGNIN_ACTION(response.user));
         return response;
       })
     );
   }
 
-  update_profile_icon(formData, id) {
+  update_profile_icon(formData, id): Observable<PutUserProfileIconResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         // 'Content-Type':  'application/json'
@@ -61,14 +68,14 @@ export class PutService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users/' + id + '/icon';
     return this.http.put(endpoint, formData, httpOptions).pipe(
-      map((response: any) => {
+      map((response: PutUserProfileIconResponse) => {
         this.store.dispatch(USER_SIGNIN_ACTION(response.user));
         return response;
       })
     );
   }
 
-  update_home_listing(formData, userId, homeId) {
+  update_home_listing(formData, userId, homeId): Observable<PutUserHomeListingResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         // 'Content-Type':  'application/json'
@@ -77,7 +84,7 @@ export class PutService extends ClientService {
     };
     const endpoint = this.API_PREFIX + '/users/' + userId + '/home-listings/' + homeId;
     return this.http.put(endpoint, formData, httpOptions).pipe(
-      map((response: any) => {
+      map((response: PutUserHomeListingResponse) => {
         return response;
       })
     );

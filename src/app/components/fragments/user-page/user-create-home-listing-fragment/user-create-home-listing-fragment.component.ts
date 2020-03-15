@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserState } from 'src/app/interfaces/user-state.interface';
+import { UserModel } from 'src/app/interfaces/user-model.interface';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 import { PostService } from 'src/app/services/client/post.service';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-create-home-listing-fragment.component.css']
 })
 export class UserCreateHomeListingFragmentComponent implements OnInit {
-  user: UserState;
+  you: UserModel;
   isEditing = false;
 
   constructor(
@@ -24,24 +24,24 @@ export class UserCreateHomeListingFragmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.subscribe((state: AppState) => {
-      this.handleStoreChange(state);
+    this.store.select('you').subscribe((you: UserModel) => {
+      this.handleUserStoreChange(you);
     });
   }
 
-  handleStoreChange(state: AppState) {
-    this.user = state.user;
+  handleUserStoreChange(you: UserModel) {
+    this.you = you;
   }
 
   onSubmit(event) {
     console.log(event);
-    this.POST.create_home_listing(event.formData, this.user.id).subscribe(
-      (response: any) => {
+    this.POST.create_home_listing(event.formData, this.you.id).subscribe(
+      (response) => {
         console.log(response);
         this.utilityService.showSuccessSnackbar(
           response.message
         );
-        this.router.navigate(['/', 'users', this.user.id, 'home-listings']);
+        this.router.navigate(['/', 'users', this.you.id, 'home-listings']);
       },
       (error: HttpErrorResponse) => {
         this.utilityService.showErrorSnackbar(

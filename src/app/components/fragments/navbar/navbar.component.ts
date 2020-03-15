@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserState } from 'src/app/interfaces/user-state.interface';
+import { UserModel } from 'src/app/interfaces/user-model.interface';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/interfaces/app-store.interface';
 import { GetService } from 'src/app/services/client/get.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  user: UserState;
+  you: UserModel;
 
   constructor(
     private store: Store<AppState>,
@@ -21,9 +21,8 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.subscribe(state => {
-      console.log(state, this);
-      this.user = state.user;
+    this.store.select('you').subscribe((you: UserModel) => {
+      this.you = you;
     });
   }
 

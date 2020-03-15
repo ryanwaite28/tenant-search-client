@@ -9,7 +9,7 @@ import {
 import { map, flatMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from '../interfaces/app-store.interface';
-import { UserState } from '../interfaces/user-state.interface';
+import { UserModel } from '../interfaces/user-model.interface';
 import { CanActivateReturn } from './_guard';
 import { GetService } from '../services/client/get.service';
 import { of } from 'rxjs';
@@ -43,9 +43,9 @@ export class SignedInGuard implements CanActivate, CanActivateChild {
       })
     );
 
-    // return this.store.select('user')
+    // return this.store.select('you')
     //   .pipe(
-    //     flatMap((you: UserState) => {
+    //     flatMap((you: UserModel) => {
     //       // return this.handleCanActivate(you, route);
     //       const isSignedIn = !!you;
     //       return isSignedIn

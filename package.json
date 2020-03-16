@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nodemon server.js",
+    "start": "npm run buildstart",
+    "startserver": "nodemon server.js",
+    "buildstart": "npm run buildaot && npm run startserver",
     "startdev": "ng serve --port 7600",
     "startdevproxy": "ng serve --proxy-config proxy.config.json --port 7600",
     "startdevopen": "ng serve --open --port 7600",
@@ -15,10 +17,6 @@
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod",
     "heroku-postbuild": "ng build --prod"
-  },
-  "engines": {
-    "node": "8.12.0",
-    "npm": "6.4.1"
   },
   "private": true,
   "dependencies": {

@@ -1,11 +1,16 @@
 <div id="welcome-page-container">
   <header>
-    <h1 class="text-center title is-1">
-      It's time for a change!
-    </h1>
-    <h3 class="text-center title is-3">
-      Why can't home owners apply to <em>you</em>?
-    </h3>
+    <div class="fill pos-rel" [style.background-image]="'url(' + welcomeWallpaper + ')'">
+      <div class="dim-2"></div>
+      <div class="pos-rel bar-strip-2 welcome-text">
+        <h1 class="text-center is-size-1">
+          It's time for a change!
+        </h1>
+        <h3 class="text-center is-size-3">
+          Why can't home owners apply to <em>you</em>?
+        </h3>
+      </div>
+    </div>
   </header>
 
   <section class="bar-strip-1 bg-white">

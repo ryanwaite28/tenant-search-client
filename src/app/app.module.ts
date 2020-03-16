@@ -75,7 +75,8 @@ import { HomeListingFragmentComponent } from './components/fragments/home-listin
 import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 import { PhonePipe } from './pipes/phone.pipe';
 import { NotificationActionPipe } from './pipes/notification-action.pipe';
-import { AboutComponent } from './components/pages/about/about.component';
+import { AboutPageComponent } from './components/pages/about-page/about-page.component';
+import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { AboutComponent } from './components/pages/about/about.component';
     UserFullNamePipe,
     PhonePipe,
     NotificationActionPipe,
-    AboutComponent,
+    AboutPageComponent,
+    ContactPageComponent,
   ],
   imports: [
     BrowserModule,

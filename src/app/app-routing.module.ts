@@ -20,6 +20,8 @@ import { UserTenantRequestsFragmentComponent } from './components/fragments/user
 import { UserLocationPreferencesFragmentComponent } from './components/fragments/user-page/user-location-preferences-fragment/user-location-preferences-fragment.component';
 import { UserCreateHomeListingFragmentComponent } from './components/fragments/user-page/user-create-home-listing-fragment/user-create-home-listing-fragment.component';
 import { UserHomeListingFragmentComponent } from './components/fragments/user-page/user-home-listing-fragment/user-home-listing-fragment.component';
+import { AboutPageComponent } from './components/pages/about-page/about-page.component';
+import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,16 @@ const routes: Routes = [
     path: 'welcome',
     pathMatch: 'full',
     component: WelcomePageComponent
+  },
+  {
+    path: 'about',
+    pathMatch: 'full',
+    component: AboutPageComponent
+  },
+  {
+    path: 'contact',
+    pathMatch: 'full',
+    component: ContactPageComponent
   },
   {
     path: 'signup',

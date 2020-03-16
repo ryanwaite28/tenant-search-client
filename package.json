@@ -12,6 +12,7 @@
     "startdevproxyopen": "ng serve --open --proxy-config proxy.config.json --port 7600",
     "build": "ng build",
     "buildaot": "ng build --aot",
+    "buildaothashing": "ng build --aot --output-hashing=all",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

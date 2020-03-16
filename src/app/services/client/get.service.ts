@@ -26,6 +26,7 @@ import { TenantRequestsService } from '../tenant-requests.service';
 export class GetService extends ClientService {
 
   defaultIconUrl: string;
+  welcomeWallpaper: string;
   private sessionChecked = false;
   private session;
 
@@ -37,6 +38,7 @@ export class GetService extends ClientService {
   ) {
     super(http);
     this.defaultIconUrl = this.DOMAIN + '/_static/img/anon.png';
+    this.welcomeWallpaper = this.DOMAIN + '/_static/img/city-wallpaper-1.jpg';
   }
 
   getSessionChecked(): boolean {

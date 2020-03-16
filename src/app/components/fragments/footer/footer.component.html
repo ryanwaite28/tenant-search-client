@@ -1,35 +1,22 @@
 <footer id="app-footer">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
+    <div class="columns">
+      <div class="column is-half">
         <h3 class="footer-title title is-3">Tenant Search</h3>
         <p>Copyright {{ currentYear }} &reg;</p>
       </div>
-      <div class="col-md-3">
+      <div class="column is-one-quarter">
         <ul class="">
           <li class="">
-            <!-- <a class="" [routerLink]="['/search']">Search</a> -->
+            <a class="transition" title="About Page" [routerLink]="['/', 'about']">About</a>
           </li>
           <li class="">
-            <!-- <a class="" [routerLink]="['/about']">About</a> -->
-          </li>
-          <li class="">
-              <!-- <a class="" [routerLink]="['/info']">Info</a> -->
-            </li>
-          <li class="">
-            <!-- <a class="" [routerLink]="['/faq']">FAQ</a> -->
+            <a class="transition" title="Contact Page" [routerLink]="['/', 'contact']">Contact</a>
           </li>
         </ul>
       </div>
-      <div class="col-md-3">
-        <ul class="">
-          <li class="">
-            <!-- <a class="" [routerLink]="['/support']">Support</a> -->
-          </li>
-          <li class="">
-            <!-- <a class="" [routerLink]="['/contact']">Contact</a> -->
-          </li>
-        </ul>
+      <div class="column is-one-quarter">
+
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class WelcomePageComponent implements OnInit {
   user$: Observable<UserModel> = this.store.select(state => state.user);
+  welcomeWallpaper: string;
 
   constructor(
     private store: Store<AppState>,
@@ -21,11 +22,11 @@ export class WelcomePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.welcomeWallpaper = this.GET.welcomeWallpaper;
     this.GET.checkUserSession().subscribe(
       (user) => {
         console.log(user);
       }
     );
   }
-
 }

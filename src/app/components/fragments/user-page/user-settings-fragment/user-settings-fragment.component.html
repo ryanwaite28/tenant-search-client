@@ -1,19 +1,23 @@
 <mat-card id="user-settings-fragment-container" *ngIf="you">
-  <h1>Settings</h1>
+  <h1 class="title is-3">Settings</h1>
   <hr/>
 
   <ng-container [ngSwitch]="you.account_type">
     <!-- Home Owner -->
     <form *ngSwitchCase="USER_ACCOUNT_TYPES.HOME_OWNER" [formGroup]="homeOwnerSettingsForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="example-full-width">
+      <!-- <mat-form-field class="example-full-width">
         <mat-label>Bio <small>({{ homeOwnerSettingsForm.value.bio.length }}/250)</small></mat-label>
         <textarea matInput formControlName="bio"></textarea>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field class="">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" />
       </mat-form-field>
-      <div class="mat-form-field">
+      <mat-form-field class="">
+        <mat-label>Phone</mat-label>
+        <input type="text" matInput formControlName="phone" />
+      </mat-form-field>
+      <!-- <div class="mat-form-field">
         <mat-label>Search Status</mat-label>
         <br/>
         <br/>
@@ -30,7 +34,7 @@
         </mat-radio-group>
         <br/>
         <br/>
-      </div>
+      </div> -->
 
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </form>
@@ -44,6 +48,10 @@
       <mat-form-field class="">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="">
+        <mat-label>Phone</mat-label>
+        <input type="text" matInput formControlName="phone" />
       </mat-form-field>
       <div class="mat-form-field">
         <mat-label>Search Status</mat-label>
@@ -77,7 +85,7 @@
         <input matInput type="number" formControlName="net_income" />
       </mat-form-field>
       <mat-form-field class="">
-        <mat-label>Number of Income Sources</mat-label>
+        <mat-label>Income Sources</mat-label>
         <input matInput type="number" formControlName="income_sources_count" />
       </mat-form-field>
 

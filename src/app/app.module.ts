@@ -36,7 +36,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatProgressBarModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatIconModule
 } from '@angular/material';
 
 import { AppStoreObj, AppEffectsList } from './stores/app.store';
@@ -72,6 +73,9 @@ import { HomeListingPageComponent } from './components/pages/home-listing-page/h
 import { UserHomeListingFragmentComponent } from './components/fragments/user-page/user-home-listing-fragment/user-home-listing-fragment.component';
 import { HomeListingFragmentComponent } from './components/fragments/home-listing-fragment/home-listing-fragment.component';
 import { UserFullNamePipe } from './pipes/user-full-name.pipe';
+import { PhonePipe } from './pipes/phone.pipe';
+import { NotificationActionPipe } from './pipes/notification-action.pipe';
+import { AboutComponent } from './components/pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +103,9 @@ import { UserFullNamePipe } from './pipes/user-full-name.pipe';
     UserHomeListingFragmentComponent,
     HomeListingFragmentComponent,
     UserFullNamePipe,
+    PhonePipe,
+    NotificationActionPipe,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,7 +145,8 @@ import { UserFullNamePipe } from './pipes/user-full-name.pipe';
     MatTooltipModule,
     MatProgressBarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   entryComponents: [],
   providers: [

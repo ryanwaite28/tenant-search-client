@@ -1,1 +1,79 @@
-<p>user-tenant-requests-fragment works!</p>
+<div>
+  <mat-card>
+    <h1 class="title is-3">Tenant Requests</h1>
+    <p>Users you have sent a tenant request to.</p>
+    <hr/>
+  </mat-card>
+  <br/>
+
+  <mat-card id="user-tenant-requests-fragment-container">
+    <div class="preference-box" *ngFor="let tenantRequest of tenantRequestsList; index as i">
+      <div class="columns">
+        <div class="column is-full">
+          <div class="chip">
+            <img
+              [src]="tenantRequest.tenant.icon_link || defaultIconUrl"
+              [alt]="tenantRequest.tenant.first_name"
+            />
+            {{ '' | userFullName : tenantRequest.tenant }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="columns"
+      >
+        <div class="column is-half">
+          <p><strong>Account Type</strong>: {{ tenantRequest.tenant.account_type }}</p>
+          <p><strong>Search Status</strong>: {{ tenantRequest.tenant.search_status }}</p>
+          <p><strong>Email</strong>: {{ tenantRequest.tenant.email }}</p>
+          <p><strong>Phone</strong>: {{ tenantRequest.tenant.phone | phone }}</p>
+          <p><strong>Verified</strong>: {{ tenantRequest.tenant.account_verified }}</p>
+        </div>
+        <div class="column is-half">
+          <p><strong>Credit Score</strong>: {{ tenantRequest.tenant.credit_score }}</p>
+          <p><strong>Gross Income</strong>: ${{ tenantRequest.tenant.gross_income | number }}</p>
+          <p><strong>Net Income</strong>: ${{ tenantRequest.tenant.net_income | number }}</p>
+          <p><strong>Income Sources</strong>: {{ tenantRequest.tenant.income_sources_count | number }}</p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <app-home-listing-fragment
+            [home]="tenantRequest.home_listing"
+            [user]="null"
+          ></app-home-listing-fragment>
+        </div>
+      </div>
+      <div class="columns" [ngSwitch]="tenantRequest.accepted === null">
+        <div class="column is-full" *ngSwitchCase="true">
+          <button
+            mat-raised-button
+            color="accent"
+            type="button" 
+            (click)="cancelTenantRequest(tenantRequest)"
+          >
+            Cancel Request
+          </button>
+        </div>
+        <div class="column is-full" *ngSwitchCase="false">
+          <mat-chip-list aria-label="">
+            <mat-chip color="primary" selected>
+              {{ tenantRequest.accepted ? 'Accepted' : 'Declined' }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <br/>
+  <button
+    *ngIf="!isEndOfResults"
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="loadMoreHomeListingRequests()"
+  >
+    Load More
+  </button>
+</div>

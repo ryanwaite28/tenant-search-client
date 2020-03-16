@@ -1,9 +1,10 @@
-<mat-card class="home-listing-card" >
+<div class="home-listing-card well-box-1">
   <div class="columns">
     <div class="column">
-      <h2 class="title is-4">
-        <a [routerLink]="['/', 'users', user.id, 'home-listings', home.id]">{{ home.title }}</a>
-      </h2>
+      <h4 class="title is-4" [ngSwitch]="isOwner">
+        <a *ngSwitchCase="true" [routerLink]="['/', 'users', home.owner_id, 'home-listings', home.id]">{{ home.title }}</a>
+        <span *ngSwitchCase="false">{{ home.title }}</span>
+      </h4>
       <ng-container *ngIf="home.icon_id">
         <img class="" [src]="home.icon_link" [alt]="home.title">
       </ng-container>
@@ -50,4 +51,4 @@
       ></app-home-listing-form-fragment>
     </div>
   </section>
-</mat-card>
+</div>

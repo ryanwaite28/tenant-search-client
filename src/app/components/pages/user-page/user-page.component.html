@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column is-one-third">
       <mat-card>
-        <h3 class="text-center">Hello {{ '' | userFullName : you }}!</h3>
+        <h3 class="text-center title is-3">Hello {{ '' | userFullName : you }}!</h3>
         <img
           class="home-bio-img"
           [src]="you.icon_link || defaultIconUrl"
@@ -16,7 +16,6 @@
           <a mat-list-item title="Go to settings page" [routerLink]="['/', 'users', you.id, 'settings']">Settings</a>
           <a mat-list-item title="Go to icon page to update icon" [routerLink]="['/', 'users', you.id, 'icon']">Icon</a>
           <a mat-list-item title="Go to notifications page" [routerLink]="['/', 'users', you.id, 'notifications']">Notifications</a>
-          <a mat-list-item title="Go to messages page" [routerLink]="['/', 'users', you.id, 'messages']">Messages</a>
 
           <br/>
 

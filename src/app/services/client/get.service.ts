@@ -12,9 +12,13 @@ import {
   SignOutResponse,
   GetUserLocationPreferencesResponse,
   GetUserHomeListingResponse,
+  GetPossibleTenantsResponse,
   GetUserHomeListingsResponse,
-  GetHomeListingRequestsResponse
+  GetHomeListingRequestsResponse,
+  GetUserNotificationsResponse
 } from 'src/app/interfaces/responses.interface';
+import { HomeListingsRequestsService } from '../home-listings-requests.service';
+import { TenantRequestsService } from '../tenant-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +32,8 @@ export class GetService extends ClientService {
   constructor(
     public http: HttpClient,
     private store: Store<AppState>,
+    private homeListingsRequestsService: HomeListingsRequestsService,
+    private tenantsRequestsService: TenantRequestsService,
   ) {
     super(http);
     this.defaultIconUrl = this.DOMAIN + '/_static/img/anon.png';
@@ -89,14 +95,16 @@ export class GetService extends ClientService {
     );
   }
 
-  user_location_preferences(id): Observable<GetUserLocationPreferencesResponse> {
+  user_location_preferences(id, minId): Observable<GetUserLocationPreferencesResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       }),
       withCredentials: true,
     };
-    const endpoint = this.API_PREFIX + '/users/' + id + '/location-preferences';
+    const endpoint = minId
+      ? this.API_PREFIX + '/users/' + id + '/location-preferences/' + minId
+      : this.API_PREFIX + '/users/' + id + '/location-preferences';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetUserLocationPreferencesResponse) => {
         return response;
@@ -104,14 +112,16 @@ export class GetService extends ClientService {
     );
   }
 
-  user_home_listings(id): Observable<GetUserHomeListingsResponse> {
+  user_home_listings(id, minId): Observable<GetUserHomeListingsResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       }),
       withCredentials: true,
     };
-    const endpoint = this.API_PREFIX + '/users/' + id + '/home-listings';
+    const endpoint = minId
+      ? this.API_PREFIX + '/users/' + id + '/home-listings/' + minId
+      : this.API_PREFIX + '/users/' + id + '/home-listings';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetUserHomeListingsResponse) => {
         return response;
@@ -134,7 +144,24 @@ export class GetService extends ClientService {
     );
   }
 
-  location_preferences_by_state(id, minId): Observable<GetUserLocationPreferencesResponse> {
+  possible_tenants_by_state(id, userId): Observable<GetPossibleTenantsResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = userId
+      ? this.API_PREFIX + '/home-listings/' + id + '/possible-tenants-by-state/' + userId
+      : this.API_PREFIX + '/home-listings/' + id + '/possible-tenants-by-state';
+    return this.http.get(endpoint, httpOptions).pipe(
+      map((response: GetPossibleTenantsResponse) => {
+        return response;
+      })
+    );
+  }
+
+  possible_tenants_by_state_and_city(id, minId): Observable<GetPossibleTenantsResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -142,16 +169,23 @@ export class GetService extends ClientService {
       withCredentials: true,
     };
     const endpoint = minId
-      ? this.API_PREFIX + '/home-listings/' + id + '/location-preferences-by-state/' + minId
-      : this.API_PREFIX + '/home-listings/' + id + '/location-preferences-by-state';
+      ? this.API_PREFIX + '/home-listings/' + id + '/possible-tenants-by-state-and-city/' + minId
+      : this.API_PREFIX + '/home-listings/' + id + '/possible-tenants-by-state-and-city';
     return this.http.get(endpoint, httpOptions).pipe(
-      map((response: GetUserLocationPreferencesResponse) => {
+      map((response: GetPossibleTenantsResponse) => {
         return response;
       })
     );
   }
 
-  location_preferences_by_state_and_city(id, minId): Observable<GetUserLocationPreferencesResponse> {
+  requests_by_home_listing_id(id, minId): Observable<GetHomeListingRequestsResponse> {
+    const tenantRequests = this.tenantsRequestsService.getAll().filter(
+      (tenantRequest) => tenantRequest.home_listing_id === id
+    );
+    if (tenantRequests.length) {
+      return of({ home_listing_requests: tenantRequests });
+    }
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -159,25 +193,64 @@ export class GetService extends ClientService {
       withCredentials: true,
     };
     const endpoint = minId
-      ? this.API_PREFIX + '/home-listings/' + id + '/location-preferences-by-state-and-city/' + minId
-      : this.API_PREFIX + '/home-listings/' + id + '/location-preferences-by-state-and-city';
-    return this.http.get(endpoint, httpOptions).pipe(
-      map((response: GetUserLocationPreferencesResponse) => {
-        return response;
-      })
-    );
-  }
-
-  requests_by_home_listing_id(id): Observable<GetHomeListingRequestsResponse> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      }),
-      withCredentials: true,
-    };
-    const endpoint = this.API_PREFIX + '/home-listings/' + id + '/requests';
+      ? this.API_PREFIX + '/home-listings/' + id + '/requests/' + minId
+      : this.API_PREFIX + '/home-listings/' + id + '/requests';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetHomeListingRequestsResponse) => {
+        this.tenantsRequestsService.addBatch(response.home_listing_requests);
+        return response;
+      })
+    );
+  }
+
+  requests_by_home_owner_id(id, minId): Observable<GetHomeListingRequestsResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = minId
+      ? this.API_PREFIX + '/users/' + id + '/tenant-requests/' + minId
+      : this.API_PREFIX + '/users/' + id + '/tenant-requests';
+    return this.http.get(endpoint, httpOptions).pipe(
+      map((response: GetHomeListingRequestsResponse) => {
+        this.tenantsRequestsService.addBatch(response.home_listing_requests);
+        return response;
+      })
+    );
+  }
+
+  requests_by_tenant_id(id, minId): Observable<GetHomeListingRequestsResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = minId
+      ? this.API_PREFIX + '/users/' + id + '/home-listings-requests/' + minId
+      : this.API_PREFIX + '/users/' + id + '/home-listings-requests';
+    return this.http.get(endpoint, httpOptions).pipe(
+      map((response: GetHomeListingRequestsResponse) => {
+        this.homeListingsRequestsService.addBatch(response.home_listing_requests);
+        return response;
+      })
+    );
+  }
+
+  user_notifications(id, minId): Observable<GetUserNotificationsResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = minId
+      ? this.API_PREFIX + '/users/' + id + '/notifications/' + minId
+      : this.API_PREFIX + '/users/' + id + '/notifications';
+    return this.http.get(endpoint, httpOptions).pipe(
+      map((response: GetUserNotificationsResponse) => {
         return response;
       })
     );

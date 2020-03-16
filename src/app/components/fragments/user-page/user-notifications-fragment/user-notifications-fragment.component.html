@@ -1,1 +1,39 @@
-<p>user-notifications-fragment works!</p>
+<div>
+  <mat-card>
+    <h1 class="title is-3">Notifications</h1>
+    <hr/>
+  </mat-card>
+  <br/>
+
+  <mat-card>
+    <div class="well-box-1" *ngFor="let notification of notificationsList; index as i">
+      <div class="chip">
+        <img
+          [src]="notification.from.icon_link || defaultIconUrl"
+          [alt]="notification.from.first_name"
+        />
+        {{ '' | userFullName : notification.from }}
+      </div>
+      <br/>
+      <br/>
+      <p>
+        {{ '' | userFullName : notification.from }} {{ notification | notificationAction }}
+      </p>
+      <br/>
+      <p>
+        <small>{{ notification.createdAt | date : 'MMM d, y, h:mm a (EEEE)' }}</small>
+      </p>
+    </div>
+  </mat-card>
+
+  <br/>
+  <button
+    *ngIf="!isEndOfResults"
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="loadMoreNotifications()"
+  >
+    Load More
+  </button>
+</div>

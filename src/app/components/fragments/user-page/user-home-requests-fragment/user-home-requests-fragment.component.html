@@ -1,1 +1,75 @@
-<p>user-home-requests-fragment works!</p>
+<div>
+  <mat-card>
+    <h1 class="title is-3">Home Requests</h1>
+    <p>Home Owners you have received a tenant request from.</p>
+    <hr/>
+  </mat-card>
+  <br/>
+
+  <mat-card id="user-home-listing-requests-fragment-container">
+    <div class="preference-box" *ngFor="let tenantRequest of tenantRequestsList; index as i">
+      <div class="columns">
+        <div class="column is-full">
+          <div class="chip">
+            <img
+              [src]="tenantRequest.home_listing.home_owner.icon_link || defaultIconUrl"
+              [alt]="tenantRequest.home_listing.home_owner.first_name"
+            />
+            {{ '' | userFullName : tenantRequest.home_listing.home_owner }}
+          </div>
+          <br/>
+          <br/>
+          <p><strong>Email</strong>: {{ tenantRequest.home_listing.home_owner.email }}</p>
+          <p><strong>Phone</strong>: {{ tenantRequest.home_listing.home_owner.phone | phone }}</p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <app-home-listing-fragment
+            [home]="tenantRequest.home_listing"
+            [user]="null"
+          ></app-home-listing-fragment>
+        </div>
+      </div>
+      <div class="columns" [ngSwitch]="tenantRequest.accepted === null">
+        <div class="column is-full" *ngSwitchCase="true">
+          <button
+            mat-raised-button
+            color="accent"
+            type="button" 
+            (click)="declineTenantRequest(tenantRequest)"
+          >
+            Decline
+          </button>
+          &nbsp;
+          <button
+            mat-raised-button
+            color="accent"
+            type="button" 
+            (click)="acceptTenantRequest(tenantRequest)"
+          >
+            Accept
+          </button>
+        </div>
+        <div class="column is-full" *ngSwitchCase="false">
+          <mat-chip-list aria-label="Fish selection">
+            <mat-chip color="primary" selected>
+              {{ tenantRequest.accepted ? 'Accepted' : 'Declined' }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <br/>
+  <button
+    *ngIf="!isEndOfResults"
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="loadMoreHomeListingRequests()"
+  >
+    Load More
+  </button>
+</div>

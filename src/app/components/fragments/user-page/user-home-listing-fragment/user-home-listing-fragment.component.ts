@@ -11,6 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LocationPreferenceModel } from 'src/app/interfaces/location-preference.interface';
 import { HomeListingRequestModel } from 'src/app/interfaces/home-listing-request.interface';
+import { TenantRequestsService } from 'src/app/services/tenant-requests.service';
+import { PostService } from 'src/app/services/client/post.service';
 
 @Component({
   selector: 'app-user-home-listing-fragment',
@@ -20,19 +22,20 @@ import { HomeListingRequestModel } from 'src/app/interfaces/home-listing-request
 export class UserHomeListingFragmentComponent implements OnInit {
   you: UserModel;
   home: HomeListingModel;
-  homeListingRequestsList: HomeListingRequestModel[] = [];
-  locationPreferencesList: LocationPreferenceModel[] = [];
+  possibleTenantsList: UserModel[] = [];
   homeListingId: number;
   defaultIconUrl: string;
   isEndOfResults = false;
 
   constructor(
-    private store: Store<AppState>,
     private GET: GetService,
+    private POST: PostService,
+    private DELETE: DeleteService,
+    private store: Store<AppState>,
     private route: ActivatedRoute,
     private utilityService: UtilityService,
-    private DELETE: DeleteService,
     private router: Router,
+    private tenantsRequestsService: TenantRequestsService,
   ) {}
 
   ngOnInit() {
@@ -47,7 +50,6 @@ export class UserHomeListingFragmentComponent implements OnInit {
         this.home = response.home_listing;
         this.home.linksList = this.utilityService.convertHomeListingLinksToList(this.home.links);
         this.loadHomeListingRequests();
-        this.loadMoreResults();
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -60,11 +62,11 @@ export class UserHomeListingFragmentComponent implements OnInit {
   }
 
   loadHomeListingRequests() {
-    this.GET.requests_by_home_listing_id(this.homeListingId).subscribe(
+    this.GET.requests_by_home_listing_id(this.homeListingId, null).subscribe(
       (response) => {
         console.log(response);
         this.isEndOfResults = response.home_listing_requests.length < 5;
-        this.homeListingRequestsList = response.home_listing_requests;
+        this.loadMorePossibleTenants();
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -72,21 +74,67 @@ export class UserHomeListingFragmentComponent implements OnInit {
     );
   }
 
-  loadMoreResults() {
-    const lastIndex = this.locationPreferencesList.length - 1;
-    const last = this.locationPreferencesList[lastIndex];
+  loadMorePossibleTenants() {
+    const lastIndex = this.possibleTenantsList.length - 1;
+    const last = this.possibleTenantsList[lastIndex];
     const minId = last ? last.id : null;
 
-    this.GET.location_preferences_by_state(this.homeListingId, minId).subscribe(
+    this.GET.possible_tenants_by_state(this.homeListingId, minId).subscribe(
       (response) => {
         console.log(response);
-        this.isEndOfResults = response.location_preferences.length < 5;
-        this.locationPreferencesList.push( ...response.location_preferences );
+        this.isEndOfResults = response.possible_tenants.length < 5;
+        response.possible_tenants.forEach((possibleTenant) => {
+          this.checktTenantRequest(possibleTenant);
+        });
+        this.possibleTenantsList.push(...response.possible_tenants);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
       }
     );
+  }
+
+  checktTenantRequest(possibleTenant: UserModel) {
+    const found = this.tenantsRequestsService.get_by_tenant_id(possibleTenant.id);
+    (<any> possibleTenant).tenant_request = found;
+  }
+
+  sendTenantRequest(possibleTenant) {
+    this.POST.send_tenant_request(this.homeListingId, possibleTenant.id)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          (<any> possibleTenant).tenant_request = response.tenant_request;
+          this.utilityService.showSuccessSnackbar(
+            response.message
+          );
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          this.utilityService.showErrorSnackbar(
+            error.error.message
+          );
+        }
+      );
+  }
+
+  cancelTenantRequest(possibleTenant) {
+    this.DELETE.cancel_tenant_request(this.homeListingId, possibleTenant.id)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          (<any> possibleTenant).tenant_request = undefined;
+          this.utilityService.showSuccessSnackbar(
+            response.message
+          );
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          this.utilityService.showErrorSnackbar(
+            error.error.message
+          );
+        }
+      );
   }
 
   deleteHomeListing(home: HomeListingModel) {

@@ -1,3 +1,25 @@
 #welcome-page-container {
-  padding: 25px;
+  .bar-strip-1 {
+    padding: 10vh 0;
+  }
+
+  .bar-strip-2 {
+    padding: 30vh 0;
+  }
+
+  header {
+    padding: 20vh 0;
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  .bg-grey {
+    background-color: #f2f2f2;
+  }
+
+  .text-box-1 {
+    padding: 0 10%;
+  }
 }

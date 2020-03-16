@@ -7,9 +7,22 @@
   <br/>
 
   
-  <app-home-listing-fragment
-    *ngFor="let home of homeListingsList"
-    [home]="home"
-    [user]="you"
-  ></app-home-listing-fragment>
+  <mat-card>
+    <app-home-listing-fragment
+      *ngFor="let home of homeListingsList"
+      [home]="home"
+      [user]="you"
+    ></app-home-listing-fragment>
+  </mat-card>
+
+  <br/>
+  <button
+    *ngIf="!isEndOfResults"
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="loadMoreHomeListings()"
+  >
+    Load More
+  </button>
 </div>

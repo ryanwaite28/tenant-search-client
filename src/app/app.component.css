@@ -1,7 +1,6 @@
 #app-container {
-  background: #f2f2f2;
-  /* display: flex;
-  flex-direction: column; */
+  background: lightgrey;
+  position: relative;
 }
 
 #main-container {

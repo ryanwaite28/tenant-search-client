@@ -12,7 +12,8 @@ import {
   SignInResponse,
   PutUserProfileSettingsResponse,
   PutUserProfileIconResponse,
-  PutUserHomeListingResponse
+  PutUserHomeListingResponse,
+  PutUserHomeListingRequestResponse
 } from 'src/app/interfaces/responses.interface';
 
 @Injectable({
@@ -85,6 +86,21 @@ export class PutService extends ClientService {
     const endpoint = this.API_PREFIX + '/users/' + userId + '/home-listings/' + homeId;
     return this.http.put(endpoint, formData, httpOptions).pipe(
       map((response: PutUserHomeListingResponse) => {
+        return response;
+      })
+    );
+  }
+
+  set_request_accept_state(userId, requestId, state: 'decline' | 'accept'): Observable<PutUserHomeListingRequestResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // 'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = this.API_PREFIX + '/users/' + userId + '/home-listings-requests/' + requestId + '/' + state;
+    return this.http.put(endpoint, {}, httpOptions).pipe(
+      map((response: PutUserHomeListingRequestResponse) => {
         return response;
       })
     );

@@ -20,7 +20,7 @@ export class HomeListingFragmentComponent implements OnInit {
   you: UserModel;
 
   get isOwner(): boolean {
-    const match = this.user && this.you && this.user.id === this.you.id;
+    const match = this.user && this.you && this.user.id === this.you.id || false;
     return match;
   }
 

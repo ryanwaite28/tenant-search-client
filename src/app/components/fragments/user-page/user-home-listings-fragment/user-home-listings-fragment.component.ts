@@ -18,6 +18,7 @@ export class UserHomeListingsFragmentComponent implements OnInit {
   you: UserModel;
   didLoad = false;
   homeListingsList: HomeListingModel[] = [];
+  isEndOfResults = false;
 
   constructor(
     private store: Store<AppState>,
@@ -37,16 +38,28 @@ export class UserHomeListingsFragmentComponent implements OnInit {
     this.you = you;
     if (!this.didLoad) {
       this.didLoad = true;
-      this.GET.user_home_listings(this.you.id).subscribe(
-        (response) => {
-          console.log(response);
-          response.home_listings.forEach((home) => {
-            home.linksList = this.utilityService.convertHomeListingLinksToList(home.links);
-          });
-          this.homeListingsList = response.home_listings;
-        }
-      );
+      this.loadMoreHomeListings();
     }
+  }
+
+  loadMoreHomeListings() {
+    const lastIndex = this.homeListingsList.length - 1;
+    const last = this.homeListingsList[lastIndex];
+    const minId = last ? last.id : null;
+
+    this.GET.user_home_listings(this.you.id, minId).subscribe(
+      (response) => {
+        console.log(response);
+        this.isEndOfResults = response.home_listings.length < 5;
+        response.home_listings.forEach((home) => {
+          home.linksList = this.utilityService.convertHomeListingLinksToList(home.links);
+        });
+        this.homeListingsList.push(...response.home_listings);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   deleteHomeListing(home: HomeListingModel) {

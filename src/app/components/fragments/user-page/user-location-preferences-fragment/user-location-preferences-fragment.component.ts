@@ -33,6 +33,7 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
     city: new FormControl({ value: '', disabled: true }, [Validators.required]),
     home_type: new FormControl({ value: '', disabled: false }, []),
   });
+  isEndOfResults = false;
 
   constructor(
     private store: Store<AppState>,
@@ -60,7 +61,7 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
     this.you = you;
     if (!this.didLoadLocationPreferences) {
       this.didLoadLocationPreferences = true;
-      this.loadLocationPreferences();
+      this.loadMoreLocationPreferences();
     }
   }
 
@@ -77,17 +78,19 @@ export class UserLocationPreferencesFragmentComponent implements OnInit {
     }
   }
 
-  loadLocationPreferences() {
-    this.GET.user_location_preferences(this.you.id).subscribe(
+  loadMoreLocationPreferences() {
+    const lastIndex = this.locationPreferencesList.length - 1;
+    const last = this.locationPreferencesList[lastIndex];
+    const minId = last ? last.id : null;
+
+    this.GET.user_location_preferences(this.you.id, minId).subscribe(
       (response) => {
         console.log(response);
-        this.locationPreferencesList = response.location_preferences;
-        this.initTable();
+        this.isEndOfResults = response.location_preferences.length < 5;
+        this.locationPreferencesList.push(...response.location_preferences);
       },
       (error: HttpErrorResponse) => {
-        this.utilityService.showErrorSnackbar(
-          error.error.message
-        );
+        console.log(error);
       }
     );
   }

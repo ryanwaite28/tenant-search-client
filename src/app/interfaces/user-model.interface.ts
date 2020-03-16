@@ -1,3 +1,5 @@
+import { LocationPreferenceModel } from './location-preference.interface';
+
 export interface UserModel {
   id: number;
   first_name: string;
@@ -10,7 +12,7 @@ export interface UserModel {
   gross_income: number; // changable
   net_income: number; // changable
   income_sources_count: number; // changable
-  paypal: string;
+  phone: string;
   account_type: string;
   search_status: string; // changable
   bio: string; // changable
@@ -25,4 +27,6 @@ export interface UserModel {
   uuid: string;
   createdAt: string;
   updatedAt: string;
+  //
+  location_preferences?: LocationPreferenceModel[];
 }

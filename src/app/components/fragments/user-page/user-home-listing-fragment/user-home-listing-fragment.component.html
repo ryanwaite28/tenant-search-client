@@ -1,9 +1,11 @@
-<div *ngIf="home">
-  <app-home-listing-fragment
-    [home]="home"
-    [user]="you"
-    (deleteClick)="deleteHomeListing($event)"
-  ></app-home-listing-fragment>
+<div id="user-home-listing-fragment-container" *ngIf="home">
+  <mat-card>
+    <app-home-listing-fragment
+      [home]="home"
+      [user]="you"
+      (deleteClick)="deleteHomeListing($event)"
+    ></app-home-listing-fragment>
+  </mat-card>
 
   <br/>
 
@@ -11,40 +13,76 @@
     <h1 class="">Users looking for homes in <strong>{{ home.state }}</strong></h1>
     <hr/>
 
-    <div *ngFor="let preference of locationPreferencesList; index as i">
+    <div class="preference-box" *ngFor="let possibleTenant of possibleTenantsList; index as i">
       <div class="columns">
         <div class="column is-full">
           <div class="chip">
             <img
-              [src]="preference.user.icon_link || defaultIconUrl"
-              [alt]="preference.user.first_name"
+              [src]="possibleTenant.icon_link || defaultIconUrl"
+              [alt]="possibleTenant.first_name"
             />
-            {{ '' | userFullName : preference.user }}
+            {{ '' | userFullName : possibleTenant }}
           </div>
         </div>
       </div>
       <div
         class="columns"
       >
-        <div class="column is-two-quarters">
-          <p><strong>Account Type</strong>: {{ preference.user.account_type }}</p>
-          <p><strong>Search Status</strong>: {{ preference.user.search_status }}</p>
-          <p><strong>Email</strong>: {{ preference.user.email }}</p>
-          <p><strong>Verified</strong>: {{ preference.user.account_verified }}</p>
-          <p><strong>Credit Score</strong>: {{ preference.user.credit_score }}</p>
-          <p><strong>Gross Income</strong>: ${{ preference.user.gross_income | number }}</p>
-          <p><strong>Net Income</strong>: ${{ preference.user.net_income | number }}</p>
-          <p><strong>Number of Income Sources</strong>: {{ preference.user.income_sources_count | number }}</p>
+        <div class="column is-half">
+          <p><strong>Account Type</strong>: {{ possibleTenant.account_type }}</p>
+          <p><strong>Search Status</strong>: {{ possibleTenant.search_status }}</p>
+          <p><strong>Email</strong>: {{ possibleTenant.email }}</p>
+          <p><strong>Phone</strong>: {{ possibleTenant.phone | phone }}</p>
+          <p><strong>Verified</strong>: {{ possibleTenant.account_verified }}</p>
         </div>
-        <div class="column is-one-quarter">
-          <p>
-            <strong>Preference</strong><br/>
-            <span>State: {{ preference.state }}</span><br/>
-            <span>City: {{ preference.city }}</span>
-          </p>
+        <div class="column is-half">
+          <p><strong>Credit Score</strong>: {{ possibleTenant.credit_score }}</p>
+          <p><strong>Gross Income</strong>: ${{ possibleTenant.gross_income | number }}</p>
+          <p><strong>Net Income</strong>: ${{ possibleTenant.net_income | number }}</p>
+          <p><strong>Income Sources</strong>: {{ possibleTenant.income_sources_count | number }}</p>
         </div>
-        <div class="column is-one-quarter">
-          <button mat-raised-button color="primary" type="button">Submit</button>
+      </div>
+      <div class="columns" *ngIf="possibleTenant.location_preferences">
+        <div class="column is-full">
+          <strong>Preferences</strong>
+          <br/>
+          <br/>
+          <mat-chip-list>
+            <mat-chip *ngFor="let preference of possibleTenant.location_preferences">
+              {{ preference.city }}, {{ preference.state }} | Home Type: {{ preference.home_type }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <ng-container [ngSwitch]="!!possibleTenant.tenant_request">
+            <ng-container *ngSwitchCase="true" [ngSwitch]="possibleTenant.tenant_request.accepted === null">
+              <button *ngSwitchCase="true"
+                mat-raised-button
+                color="accent"
+                type="button" 
+                (click)="cancelTenantRequest(possibleTenant)"
+              >
+                Pending
+              </button>
+              <mat-chip-list aria-label="" *ngSwitchCase="false">
+                <mat-chip color="primary" selected>
+                  {{ possibleTenant.tenant_request.accepted ? 'Accepted' : 'Declined' }}
+                </mat-chip>
+              </mat-chip-list>
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+              <button
+                mat-raised-button
+                color="primary"
+                type="button" 
+                (click)="sendTenantRequest(possibleTenant)"
+              >
+                Request
+              </button>
+            </ng-container>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -52,8 +90,9 @@
     <br/>
     <button
       *ngIf="!isEndOfResults"
+      (click)="loadMorePossibleTenants()"
       mat-raised-button
       color="primary"
-      type="button">Load More Results</button>
+      type="button">Load More</button>
   </mat-card>
 </div>

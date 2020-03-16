@@ -25,6 +25,7 @@ export class UserSettingsFragmentComponent implements OnInit {
 
   tenantSettingsForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
+    phone: new FormControl('', []),
     bio: new FormControl('', []),
     search_status: new FormControl('', [Validators.required]),
     credit_score: new FormControl(0, [Validators.required]),
@@ -35,6 +36,7 @@ export class UserSettingsFragmentComponent implements OnInit {
 
   homeOwnerSettingsForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
+    phone: new FormControl('', []),
     bio: new FormControl('', []),
     search_status: new FormControl('', [Validators.required]),
   });
@@ -53,9 +55,13 @@ export class UserSettingsFragmentComponent implements OnInit {
 
   handleUserStoreChange(you: UserModel) {
     this.you = you;
-    if (!this.you || this.you.account_type === USER_ACCOUNT_TYPES.TENANT) {
+    if (!this.you) {
+      return;
+    }
+    if (this.you.account_type === USER_ACCOUNT_TYPES.TENANT) {
       this.tenantSettingsForm.setValue({
         email: this.you.email,
+        phone: this.you.phone,
         bio: this.you.bio,
         search_status: this.you.search_status,
         credit_score: this.you.credit_score,
@@ -66,6 +72,7 @@ export class UserSettingsFragmentComponent implements OnInit {
     } else {
       this.homeOwnerSettingsForm.setValue({
         email: this.you.email,
+        phone: this.you.phone,
         bio: this.you.bio,
         search_status: this.you.search_status,
       });

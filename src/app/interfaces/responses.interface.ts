@@ -2,6 +2,7 @@ import { UserModel } from './user-model.interface';
 import { LocationPreferenceModel } from './location-preference.interface';
 import { HomeListingModel } from './home-listing.interface';
 import { HomeListingRequestModel } from './home-listing-request.interface';
+import { NotificationModel } from './notification.interface';
 
 
 /*
@@ -25,7 +26,20 @@ export interface SignOutResponse {
   message: string;
 }
 
+export interface ErrorResponse {
+  error: boolean;
+  message: string;
+  [key: string]: any;
+}
+
 /** GET Responses */
+
+export interface GetUserResponse {
+  user: UserModel;
+}
+export interface GetUsersResponse {
+  users: UserModel[];
+}
 
 export interface SessionResponse {
   online: boolean;
@@ -36,6 +50,7 @@ export interface SessionResponse {
 export interface GetUserLocationPreferenceResponse {
   location_preference: LocationPreferenceModel;
 }
+
 export interface GetUserLocationPreferencesResponse {
   location_preferences: LocationPreferenceModel[];
 }
@@ -43,6 +58,7 @@ export interface GetUserLocationPreferencesResponse {
 export interface GetUserHomeListingResponse {
   home_listing: HomeListingModel;
 }
+
 export interface GetUserHomeListingsResponse {
   home_listings: HomeListingModel[];
 }
@@ -50,8 +66,17 @@ export interface GetUserHomeListingsResponse {
 export interface GetHomeListingRequestResponse {
   home_listing_request: HomeListingRequestModel;
 }
+
 export interface GetHomeListingRequestsResponse {
   home_listing_requests: HomeListingRequestModel[];
+}
+
+export interface GetPossibleTenantsResponse {
+  possible_tenants: UserModel[];
+}
+
+export interface GetUserNotificationsResponse {
+  notifications: NotificationModel[];
 }
 
 /** POST Responses */
@@ -71,6 +96,11 @@ export interface PostUserLocationPreferenceResponse {
 
 export interface PostUserHomeListingResponse {
   home_listing: HomeListingModel;
+  message: string;
+}
+
+export interface PostTenantRequestResponse {
+  tenant_request: HomeListingRequestModel;
   message: string;
 }
 
@@ -99,6 +129,11 @@ export interface PutUserHomeListingResponse {
   message: string;
 }
 
+export interface PutUserHomeListingRequestResponse {
+  accepted: boolean;
+  message: string;
+}
+
 /** DELETE Responses */
 
 export interface DeleteUserLocationPreferenceResponse {
@@ -106,5 +141,10 @@ export interface DeleteUserLocationPreferenceResponse {
 }
 
 export interface DeleteUserHomeListingResponse {
+  message: string;
+}
+
+export interface DeleteTenantRequestResponse {
+  delete_updates: any;
   message: string;
 }

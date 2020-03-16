@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run buildstart",
+    "start": "npm run startserver",
     "startserver": "nodemon server.js",
     "buildstart": "npm run buildaot && npm run startserver",
     "startdev": "ng serve --port 7600",

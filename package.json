@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "npm run buildstart",
     "startserver": "nodemon server.js",
-    "buildstart": "npm run build && npm run startserver",
+    "buildstart": "npm run buildaot && npm run startserver",
     "startdev": "ng serve --port 7600",
     "startdevproxy": "ng serve --proxy-config proxy.config.json --port 7600",
     "startdevopen": "ng serve --open --port 7600",
@@ -18,6 +18,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "~0.801.1",
     "@angular/animations": "~8.1.1",
     "@angular/cdk": "~8.2.3",
     "@angular/cli": "~8.1.1",

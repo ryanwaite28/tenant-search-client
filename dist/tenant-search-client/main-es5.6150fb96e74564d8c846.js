@@ -11366,7 +11366,7 @@ var ClientService = /** @class */ (function () {
     function ClientService(http) {
         this.http = http;
         var isProd = window.location.origin.includes('herokuapp'); // process.env.DEV_OR_PROD === 'PRODUCTION';
-        this.DOMAIN = isProd ? 'https://rmw-tenant-search-client.herokuapp.com' : "http://localhost:8000";
+        this.DOMAIN = isProd ? 'https://rmw-tenant-search-server.herokuapp.com' : "http://localhost:8000";
         var apiDomain = this.DOMAIN + '/main';
         this.API_PREFIX = apiDomain;
         console.log({ isProd: isProd, apiDomain: apiDomain });
@@ -12415,4 +12415,4 @@ module.exports = __webpack_require__(/*! C:\Users\user\Developer\tenant-search\t
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es5.983b225ffef7991cc0ee.js.map
+//# sourceMappingURL=main-es5.6150fb96e74564d8c846.js.map

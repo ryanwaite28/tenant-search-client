@@ -11195,7 +11195,7 @@ class ClientService {
     constructor(http) {
         this.http = http;
         const isProd = window.location.origin.includes('herokuapp'); // process.env.DEV_OR_PROD === 'PRODUCTION';
-        this.DOMAIN = isProd ? 'https://rmw-tenant-search-client.herokuapp.com' : `http://localhost:8000`;
+        this.DOMAIN = isProd ? 'https://rmw-tenant-search-server.herokuapp.com' : `http://localhost:8000`;
         const apiDomain = this.DOMAIN + '/main';
         this.API_PREFIX = apiDomain;
         console.log({ isProd, apiDomain });
@@ -12196,4 +12196,4 @@ module.exports = __webpack_require__(/*! C:\Users\user\Developer\tenant-search\t
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
-//# sourceMappingURL=main-es2015.23faad3ed6a5d463ec34.js.map
+//# sourceMappingURL=main-es2015.83998ab4ffe9bcc718da.js.map

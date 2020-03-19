@@ -1,3 +1,5 @@
+import { UserModel } from './user-model.interface';
+
 export interface NotificationModel {
   id: number;
   createdAt: string;
@@ -16,4 +18,6 @@ export interface NotificationModel {
   date_created: string;
   uuid: string;
   //
+  from?: UserModel;
+  to?: UserModel;
 }

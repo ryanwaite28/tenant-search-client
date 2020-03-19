@@ -77,6 +77,8 @@ import { PhonePipe } from './pipes/phone.pipe';
 import { NotificationActionPipe } from './pipes/notification-action.pipe';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
+import { PasswordResetPageComponent } from './components/pages/password-reset-page/password-reset-page.component';
+import { VerifyAccountPageComponent } from './components/pages/verify-account-page/verify-account-page.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { ContactPageComponent } from './components/pages/contact-page/contact-pa
     NotificationActionPipe,
     AboutPageComponent,
     ContactPageComponent,
+    PasswordResetPageComponent,
+    VerifyAccountPageComponent,
   ],
   imports: [
     BrowserModule,

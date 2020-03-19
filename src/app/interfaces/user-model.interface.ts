@@ -12,6 +12,8 @@ export interface UserModel {
   gross_income: number; // changable
   net_income: number; // changable
   income_sources_count: number; // changable
+  preferred_rent: number; // changable
+  max_rent: number; // changable
   phone: string;
   account_type: string;
   search_status: string; // changable

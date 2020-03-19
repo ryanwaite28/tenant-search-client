@@ -15,7 +15,8 @@ import {
   GetPossibleTenantsResponse,
   GetUserHomeListingsResponse,
   GetHomeListingRequestsResponse,
-  GetUserNotificationsResponse
+  GetUserNotificationsResponse,
+  MessageResponse
 } from 'src/app/interfaces/responses.interface';
 import { HomeListingsRequestsService } from '../home-listings-requests.service';
 import { TenantRequestsService } from '../tenant-requests.service';
@@ -181,12 +182,12 @@ export class GetService extends ClientService {
   }
 
   requests_by_home_listing_id(id, minId): Observable<GetHomeListingRequestsResponse> {
-    const tenantRequests = this.tenantsRequestsService.getAll().filter(
-      (tenantRequest) => tenantRequest.home_listing_id === id
-    );
-    if (tenantRequests.length) {
-      return of({ home_listing_requests: tenantRequests });
-    }
+    // const tenantRequests = this.tenantsRequestsService.getAll().filter(
+    //   (tenantRequest) => tenantRequest.home_listing_id === id
+    // );
+    // if (tenantRequests.length) {
+    //   return of({ home_listing_requests: tenantRequests });
+    // }
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -199,7 +200,7 @@ export class GetService extends ClientService {
       : this.API_PREFIX + '/home-listings/' + id + '/requests';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetHomeListingRequestsResponse) => {
-        this.tenantsRequestsService.addBatch(response.home_listing_requests);
+        // this.tenantsRequestsService.addBatch(response.home_listing_requests);
         return response;
       })
     );
@@ -217,7 +218,7 @@ export class GetService extends ClientService {
       : this.API_PREFIX + '/users/' + id + '/tenant-requests';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetHomeListingRequestsResponse) => {
-        this.tenantsRequestsService.addBatch(response.home_listing_requests);
+        // this.tenantsRequestsService.addBatch(response.home_listing_requests);
         return response;
       })
     );
@@ -235,7 +236,7 @@ export class GetService extends ClientService {
       : this.API_PREFIX + '/users/' + id + '/home-listings-requests';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetHomeListingRequestsResponse) => {
-        this.homeListingsRequestsService.addBatch(response.home_listing_requests);
+        // this.homeListingsRequestsService.addBatch(response.home_listing_requests);
         return response;
       })
     );
@@ -253,6 +254,21 @@ export class GetService extends ClientService {
       : this.API_PREFIX + '/users/' + id + '/notifications';
     return this.http.get(endpoint, httpOptions).pipe(
       map((response: GetUserNotificationsResponse) => {
+        return response;
+      })
+    );
+  }
+
+  verify_account(code): Observable<MessageResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = this.API_PREFIX + '/verify-account/' + code;
+    return this.http.get(endpoint, httpOptions).pipe(
+      map((response: MessageResponse) => {
         return response;
       })
     );

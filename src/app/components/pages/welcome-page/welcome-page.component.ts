@@ -12,21 +12,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./welcome-page.component.scss']
 })
 export class WelcomePageComponent implements OnInit {
-  user$: Observable<UserModel> = this.store.select(state => state.user);
+  user: UserModel;
   welcomeWallpaper: string;
 
   constructor(
-    private store: Store<AppState>,
     private GET: GetService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.welcomeWallpaper = this.GET.welcomeWallpaper;
-    this.GET.checkUserSession().subscribe(
-      (user) => {
-        console.log(user);
-      }
-    );
+    this.GET.checkUserSession().subscribe((user: UserModel) => {
+      this.user = user;
+      console.log(user);
+    });
   }
 }

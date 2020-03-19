@@ -23,6 +23,13 @@
       <p>
         <small>{{ notification.createdAt | date : 'MMM d, y, h:mm a (EEEE)' }}</small>
       </p>
+      <hr>
+      <ng-container [ngSwitch]="notification.target_type">
+        <app-home-listing-fragment
+          [home]="notification.home_listing"
+          [user]="null"
+        ></app-home-listing-fragment>
+      </ng-container>
     </div>
   </mat-card>
 

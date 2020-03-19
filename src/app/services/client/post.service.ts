@@ -10,7 +10,8 @@ import {
   SignUpResponse,
   PostUserLocationPreferenceResponse,
   PostUserHomeListingResponse,
-  PostTenantRequestResponse
+  PostTenantRequestResponse,
+  MessageResponse
 } from 'src/app/interfaces/responses.interface';
 import { HomeListingsRequestsService } from '../home-listings-requests.service';
 import { TenantRequestsService } from '../tenant-requests.service';
@@ -83,6 +84,20 @@ export class PostService extends ClientService {
     return this.http.post(endpoint, {}, httpOptions).pipe(
       map((response: PostTenantRequestResponse) => {
         this.tenantsRequestsService.add(response.tenant_request);
+        return response;
+      })
+    );
+  }
+
+  submit_reset_password_request(data): Observable<MessageResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.post(this.API_PREFIX  + '/passwords/submit_reset_password_request', data, httpOptions).pipe(
+      map((response: MessageResponse) => {
         return response;
       })
     );

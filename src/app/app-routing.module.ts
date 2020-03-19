@@ -22,6 +22,9 @@ import { UserCreateHomeListingFragmentComponent } from './components/fragments/u
 import { UserHomeListingFragmentComponent } from './components/fragments/user-page/user-home-listing-fragment/user-home-listing-fragment.component';
 import { AboutPageComponent } from './components/pages/about-page/about-page.component';
 import { ContactPageComponent } from './components/pages/contact-page/contact-page.component';
+import { UserPasswordFragmentComponent } from './components/fragments/user-page/user-password-fragment/user-password-fragment.component';
+import { PasswordResetPageComponent } from './components/pages/password-reset-page/password-reset-page.component';
+import { VerifyAccountPageComponent } from './components/pages/verify-account-page/verify-account-page.component';
 
 const routes: Routes = [
   {
@@ -43,6 +46,20 @@ const routes: Routes = [
     path: 'contact',
     pathMatch: 'full',
     component: ContactPageComponent
+  },
+  {
+    path: 'verify-account/:verify_code',
+    pathMatch: 'full',
+    component: VerifyAccountPageComponent,
+  },
+  {
+    path: 'password-reset',
+    pathMatch: 'full',
+    component: PasswordResetPageComponent,
+    canActivate: [SignedOutGuard],
+    data: {
+      canActivateErrorMessage: `You are already signed in. Use the reset password form.`,
+    },
   },
   {
     path: 'signup',
@@ -99,6 +116,15 @@ const routes: Routes = [
         },
       },
       {
+        path: 'password',
+        component: UserPasswordFragmentComponent,
+        data: {
+          authParamsProp: 'user_id',
+          canActivateErrorMessage: `You do not have permission to access this page.`,
+          canActivateErrorRedirect: ['/']
+        },
+      },
+      {
         path: 'notifications',
         component: UserNotificationsFragmentComponent,
         data: {
@@ -107,7 +133,7 @@ const routes: Routes = [
           canActivateErrorRedirect: ['/']
         },
       },
-      {
+      /*{
         path: 'messages',
         component: UserMessagesFragmentComponent,
         data: {
@@ -115,7 +141,7 @@ const routes: Routes = [
           canActivateErrorMessage: `You do not have permission to access this page.`,
           canActivateErrorRedirect: ['/']
         },
-      },
+      },*/
       // Tenant
       {
         path: 'location-preferences',

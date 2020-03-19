@@ -1,0 +1,22 @@
+#verify-account-page-container {
+  padding: 50px 0px;
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: block;
+  }
+
+  .mat-form-field {
+    display: block;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.125;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    position: relative;
+    text-align: left;
+    margin: 0 10px;
+  }
+}

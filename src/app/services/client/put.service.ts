@@ -13,7 +13,9 @@ import {
   PutUserProfileSettingsResponse,
   PutUserProfileIconResponse,
   PutUserHomeListingResponse,
-  PutUserHomeListingRequestResponse
+  PutUserHomeListingRequestResponse,
+  PutUserPasswordResponse,
+  MessageResponse
 } from 'src/app/interfaces/responses.interface';
 
 @Injectable({
@@ -76,6 +78,21 @@ export class PutService extends ClientService {
     );
   }
 
+  update_profile_password(data, id): Observable<PutUserPasswordResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    const endpoint = this.API_PREFIX + '/users/' + id + '/password';
+    return this.http.put(endpoint, data, httpOptions).pipe(
+      map((response: PutUserPasswordResponse) => {
+        return response;
+      })
+    );
+  }
+
   update_home_listing(formData, userId, homeId): Observable<PutUserHomeListingResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -101,6 +118,20 @@ export class PutService extends ClientService {
     const endpoint = this.API_PREFIX + '/users/' + userId + '/home-listings-requests/' + requestId + '/' + state;
     return this.http.put(endpoint, {}, httpOptions).pipe(
       map((response: PutUserHomeListingRequestResponse) => {
+        return response;
+      })
+    );
+  }
+
+  submit_password_reset_code(data): Observable<MessageResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      }),
+      withCredentials: true,
+    };
+    return this.http.put(this.API_PREFIX  + '/passwords/submit_password_reset_code', data, httpOptions).pipe(
+      map((response: MessageResponse) => {
         return response;
       })
     );

@@ -11,6 +11,9 @@ export enum SEARCH_STATUS_LABELS {
 
 export enum HOME_TYPE_LABELS {
   ANY = 'Any',
+  ROOM = 'Room',
+  BASEMENT_FLOOR = 'Basement Floor',
+  STUDIO = 'Studio',
   CONDO = 'Condo',
   APARTMENT = 'Apartment',
   TOWN_HOME = 'Town Home',
@@ -31,6 +34,9 @@ export enum USER_ACCOUNT_TYPES {
 
 export enum HOME_TYPES {
   ANY = 'ANY',
+  ROOM = 'ROOM',
+  BASEMENT_FLOOR = 'BASEMENT_FLOOR',
+  STUDIO = 'STUDIO',
   CONDO = 'CONDO',
   APARTMENT = 'APARTMENT',
   TOWN_HOME = 'TOWN_HOME',

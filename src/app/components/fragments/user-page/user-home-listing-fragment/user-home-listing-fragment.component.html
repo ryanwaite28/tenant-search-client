@@ -40,6 +40,8 @@
           <p><strong>Gross Income</strong>: ${{ possibleTenant.gross_income | number }}</p>
           <p><strong>Net Income</strong>: ${{ possibleTenant.net_income | number }}</p>
           <p><strong>Income Sources</strong>: {{ possibleTenant.income_sources_count | number }}</p>
+          <p><strong>Preferred Rent</strong>: ${{ possibleTenant.preferred_rent | number }}</p>
+          <p><strong>Max Rent</strong>: ${{ possibleTenant.max_rent | number }}</p>
         </div>
       </div>
       <div class="columns" *ngIf="possibleTenant.location_preferences">

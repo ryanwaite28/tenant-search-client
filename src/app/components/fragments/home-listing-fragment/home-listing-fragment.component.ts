@@ -35,6 +35,9 @@ export class HomeListingFragmentComponent implements OnInit {
     this.store.select('you').subscribe((you: UserModel) => {
       this.handleUserStoreChange(you);
     });
+    if (!this.home.linksList) {
+      this.home.linksList = this.utilityService.convertHomeListingLinksToList(this.home.links);
+    }
   }
 
   handleUserStoreChange(you: UserModel) {

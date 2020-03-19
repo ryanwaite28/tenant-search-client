@@ -22,6 +22,7 @@ import { PostService } from 'src/app/services/client/post.service';
 export class UserHomeListingFragmentComponent implements OnInit {
   you: UserModel;
   home: HomeListingModel;
+  homeListingRequests: HomeListingRequestModel[];
   possibleTenantsList: UserModel[] = [];
   homeListingId: number;
   defaultIconUrl: string;
@@ -65,7 +66,7 @@ export class UserHomeListingFragmentComponent implements OnInit {
     this.GET.requests_by_home_listing_id(this.homeListingId, null).subscribe(
       (response) => {
         console.log(response);
-        this.isEndOfResults = response.home_listing_requests.length < 5;
+        this.homeListingRequests = response.home_listing_requests;
         this.loadMorePossibleTenants();
       },
       (error: HttpErrorResponse) => {
@@ -95,7 +96,10 @@ export class UserHomeListingFragmentComponent implements OnInit {
   }
 
   checktTenantRequest(possibleTenant: UserModel) {
-    const found = this.tenantsRequestsService.get_by_tenant_id(possibleTenant.id);
+    // const found = this.tenantsRequestsService.get_by_tenant_id(possibleTenant.id);
+    const found = this.homeListingRequests.find((r) => {
+      return r.tenant_id === possibleTenant.id
+    });
     (<any> possibleTenant).tenant_request = found;
   }
 

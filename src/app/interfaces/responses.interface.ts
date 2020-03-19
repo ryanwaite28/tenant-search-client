@@ -20,6 +20,10 @@ export interface new {
 
 /** Common Response */
 
+export interface MessageResponse {
+  message: string;
+}
+
 export interface SignOutResponse {
   online: boolean;
   successful: boolean;
@@ -131,6 +135,11 @@ export interface PutUserHomeListingResponse {
 
 export interface PutUserHomeListingRequestResponse {
   accepted: boolean;
+  message: string;
+}
+
+export interface PutUserPasswordResponse {
+  updates: number[];
   message: string;
 }
 

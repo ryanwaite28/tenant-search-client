@@ -6,11 +6,10 @@ import {
   Router
 } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { AppState } from '../interfaces/app-store.interface';
 import { UserModel } from '../interfaces/user-model.interface';
 import { CanActivateReturn } from './_guard';
 import { GetService } from '../services/client/get.service';
+import { UtilityService } from '../services/utility.service';
 
 
 @Injectable({
@@ -20,7 +19,7 @@ export class SignedOutGuard implements CanActivate {
   constructor(
     private GET: GetService,
     private router: Router,
-    private store: Store<AppState>
+    private utilityService: UtilityService
   ) {}
 
   canActivate(
@@ -32,6 +31,9 @@ export class SignedOutGuard implements CanActivate {
         console.log({ you, route, state });
         if (you) {
           this.router.navigate(['/', 'users', you.id]);
+          this.utilityService.showSuccessSnackbar(
+            route.data.canActivateErrorMessage
+          );
         }
         return !you;
       })

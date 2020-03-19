@@ -22,6 +22,15 @@
     <mat-form-field class="flex-grow-even space-field">
       <mat-label>Home Type</mat-label>
       <mat-select name="home_type" formControlName="home_type">
+        <mat-option [value]="HOME_TYPES.ROOM">
+          {{ HOME_TYPE_LABELS.ROOM }}
+        </mat-option>
+        <mat-option [value]="HOME_TYPES.BASEMENT_FLOOR">
+          {{ HOME_TYPE_LABELS.BASEMENT_FLOOR }}
+        </mat-option>
+        <mat-option [value]="HOME_TYPES.STUDIO">
+          {{ HOME_TYPE_LABELS.STUDIO }}
+        </mat-option>
         <mat-option [value]="HOME_TYPES.CONDO">
           {{ HOME_TYPE_LABELS.CONDO }}
         </mat-option>

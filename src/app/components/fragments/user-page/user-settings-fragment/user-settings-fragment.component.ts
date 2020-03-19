@@ -32,6 +32,8 @@ export class UserSettingsFragmentComponent implements OnInit {
     gross_income: new FormControl(0, [Validators.required]),
     net_income: new FormControl(0, [Validators.required]),
     income_sources_count: new FormControl(0, [Validators.required]),
+    preferred_rent: new FormControl(0, []),
+    max_rent: new FormControl(0, []),
   });
 
   homeOwnerSettingsForm = new FormGroup({
@@ -68,6 +70,8 @@ export class UserSettingsFragmentComponent implements OnInit {
         gross_income: this.you.gross_income,
         net_income: this.you.net_income,
         income_sources_count: this.you.income_sources_count,
+        preferred_rent: this.you.preferred_rent,
+        max_rent: this.you.max_rent,
       });
     } else {
       this.homeOwnerSettingsForm.setValue({
